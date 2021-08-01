@@ -21,7 +21,6 @@ function Home() {
     const formData = new FormData();
     formData.append("content", new Blob([JSON.stringify(content)], {type: "application/json"}));
     for (const file of files) {
-      console.log(file);
       formData.append("files", file);
     }
 
