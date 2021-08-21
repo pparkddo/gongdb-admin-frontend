@@ -1,0 +1,107 @@
+@charset "utf-8";
+
+
+
+/*default*/
+body,h1,h2,h3,h4,h5,h6,p,input,button,a{ font-family: 'TossProductSans','NotoSans'; margin:0;}
+body{min-width:1200px;}
+ul{ padding:0; margin:0; list-style:none;}
+a{ color: #191f28; text-decoration:none;}
+input{ color: #191f28; text-decoration:none; font-family: Noto Sans KR;}
+.inner{ width:1200px; margin:0 auto; }
+.cf::after{ content:""; display:block; clear:both;}
+.blue01{color:#3182f6;}
+/*default-end*/
+
+
+
+.con_wrap {
+    padding-top:60px;/*nav_bar 뒤에 콘텐츠 가려짐 방지*/
+}
+.con_wrap .inner {padding: 80px 15px 80px 15px;}
+
+.con_wrap h1 {
+    color: #333d4b;
+    font-size: 20px;
+    line-height: 25px;
+}
+
+.con01, .con02 , .con03, .con04{
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.contants ul li:first-child{ padding-left:0;}
+
+.con01 li, .con02 li , .con03 li{
+    float: left;
+    padding-left: 20px;
+}
+
+.con_wrap h1 {
+    margin-bottom: 10px;
+}
+
+input{
+    width: 250px;
+    height: 25px;
+    font-size: 12px;
+    color: #333d4b;
+    background: rgba(0,23,51,0.02);
+    border-radius: 5px;
+    border: 1px solid #f2f2f2;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+input:focus{
+    outline: 0;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
+}
+
+.con04 button{
+   height: 30px;
+   width: 530px;
+   border:none;
+   border-radius: 5px;
+   cursor: pointer;
+   color: #fff;
+   background-color: #3182f6;
+}
+ .con04 button:hover{
+    background-color: #1b64da;
+}
+
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+  }
+  
+  .filebox label {
+    display: inline-block;
+    padding: 5px 20px;
+    font-size: 12px;
+    color: #333;
+    vertical-align: middle;
+    background-color: #fdfdfd;
+    cursor: pointer;
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+  }
+  
+  /* named upload */
+  .filebox .upload-name {
+    display: inline-block;
+    height: 35px;
+    font-size:18px; 
+    padding: 0 10px;
+    vertical-align: middle;
+    background-color: #f5f5f5;
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+  }

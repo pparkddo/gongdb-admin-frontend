@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./index.css"
 
 function Home() {
 
@@ -31,36 +32,61 @@ function Home() {
   };
 
   return (
-    <div>
-      <div>
-        <label>회사명</label>
-        <input type="text" onChange={e => setCompanyName(e.target.value)} />
+    <div className="con_wrap">
+      {/*inner*/}
+      <div className="inner">
+        
+        <div className="contants">
+          <ul className="con01 cf">
+            <li>
+              <h1>회사명</h1>
+              <input type="text" onChange={e => setCompanyName(e.target.value)} />
+            </li>
+            <li>
+              <h1>차수명</h1>
+              <input type="text" onChange={e => setSequence(e.target.value)} />
+            </li>
+          </ul>
+
+          <ul className="con02 cf">
+            <li>
+              <h1>접수시작일</h1>
+              <input type="datetime-local" onChange={e => setReceiptStartTimestamp(e.target.value)} />
+            </li>
+            <li>  
+              <h1>접수종료일</h1>
+              <input type="datetime-local" onChange={e => setReceiptEndTimestamp(e.target.value)} />
+            </li>  
+          </ul>
+
+          <ul className="con03 filebox cf">
+            <li>
+              <h1>링크</h1>
+              <input type="text" onChange={e => setLink(e.target.value)} />
+            </li>
+            <li>
+              <h1>첨부파일</h1>
+              <label htmlFor="file">업로드</label>
+              <input type="file" id="file" onChange={e => setFiles(e.target.files)} multiple />
+            </li>
+          </ul>
+
+          <div>
+            {files.length === 0 ? "none" : <p>{files[0].name + " 외 " + (files.length-1) + "개의 파일"}</p>}
+          </div>
+
+          <div className="con04">
+            <button onClick={post}>차수 입력</button>
+          </div>
+        </div>
+
       </div>
-      <div>
-        <label>차수명</label>
-        <input type="text" onChange={e => setSequence(e.target.value)} />
-      </div>
-      <div>
-        <label>접수시작일</label>
-        <input type="datetime-local" onChange={e => setReceiptStartTimestamp(e.target.value)} />
-      </div>
-      <div>
-        <label>접수종료일</label>
-        <input type="datetime-local" onChange={e => setReceiptEndTimestamp(e.target.value)} />
-      </div>
-      <div>
-        <label>링크</label>
-        <input type="text" onChange={e => setLink(e.target.value)} />
-      </div>
-      <div>
-        <label>첨부파일</label>
-        <input type="file" onChange={e => setFiles(e.target.files)} multiple />
-      </div>
-      <div>
-        <button onClick={post}>차수 입력</button>
-      </div>
-    </div>
+      {/*inner*/}
+    </div> 
+    
   );
+  
 }
+
 
 export default Home;
