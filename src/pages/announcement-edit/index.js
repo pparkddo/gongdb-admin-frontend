@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import Spinner from "../../components/spinner";
 
-function AnnouncementInput(props) {
+function AnnouncementEdit(props) {
 
   const id = props.match.params.id;
+  const [isLoading, setLoading] = useState(true);
   const [positionName, setPositionName] = useState("");
   const [recruitType, setRecruitType] = useState("");
   const [recruitLevel, setRecruitLevel] = useState("");
@@ -16,7 +18,36 @@ function AnnouncementInput(props) {
   const [languageScores, setLanguageScores] = useState([]);
   const [notes, setNotes] = useState([]);
 
-  const post = () => {
+  const getAnnouncement = useCallback(id => {
+    fetch(`/api/announcement/${id}`)
+      .then(response => response.json())
+      .then(setAnnouncement)
+      .then(() => setLoading(false));
+  }, []);
+
+  const setAnnouncement = data => {
+    setPositionName(data.position.positionName);
+    setRecruitType(data.recruitType);
+    setRecruitLevel(data.recruitLevel);
+    setWorkingType(data.workingType);
+    setDistrictName(data.districtName);
+    setHeadCount(data.headCount);
+    setRank(data.rank);
+    setCertificates(data.certificates);
+    setDepartments(data.departments);
+    setSubjects(data.subjects.map(value => value.subjectName));
+    setLanguageScores(
+        data.languageScores.map(
+            value => ({
+                name: value.languageName,
+                score: value.score,
+                perfectScore: value.perfectScore,
+            })
+        ));
+    setNotes(data.notes);
+  };
+
+  const put = () => {
     const content = {
       positionName: positionName,
       recruitType: recruitType,
@@ -32,8 +63,8 @@ function AnnouncementInput(props) {
       notes: notes,
     };
 
-    fetch(`/api/sequence/${id}/announcement`, {
-        method: "POST",
+    fetch(`/api/announcement/${id}`, {
+        method: "PUT",
         body: JSON.stringify(content),
         headers: {"Content-Type": "application/json;charset=utf8"}
     }).then(console.log);
@@ -190,66 +221,80 @@ function AnnouncementInput(props) {
     setNotes([...notes, ""]);
   };
 
+  useEffect(() => {
+    getAnnouncement(id);
+  }, [getAnnouncement, id]);
+
   return (
     <div>
-      <div>
-        <label>직무명</label>
-        <input type="text" value={positionName} onChange={e => setPositionName(e.target.value)} />
-      </div>
-      <div>
-        <label>채용구분</label>
-        <input type="text" value={recruitType} onChange={e => setRecruitType(e.target.value)} />
-      </div>
-      <div>
-        <label>채용수준</label>
-        <input type="text" value={recruitLevel} onChange={e => setRecruitLevel(e.target.value)} />
-      </div>
-      <div>
-        <label>근무형태</label>
-        <input type="text" value={workingType} onChange={e => setWorkingType(e.target.value)} />
-      </div>
-      <div>
-        <label>지역명</label>
-        <input type="text" value={districtName} onChange={e => setDistrictName(e.target.value)} />
-      </div>
-      <div>
-        <label>인원수</label>
-        <input type="text" value={headCount} onChange={e => setHeadCount(e.target.value)} />
-      </div>
-      <div>
-        <label>직급</label>
-        <input type="text" value={rank} onChange={e => setRank(e.target.value)} />
-      </div>
-      <div>
-        <label>자격증</label>
-        {renderCertificates()}
-        <button onClick={addCertificate}>+</button>
-      </div>
-      <div>
-        <label>학과</label>
-        {renderDepartments()}
-        <button onClick={addDepartment}>+</button>
-      </div>
-      <div>
-        <label>과목</label>
-        {renderSubjects()}
-        <button onClick={addSubject}>+</button>
-      </div>
-      <div>
-        <label>어학점수</label>
-        {renderLanguageScores()}
-        <button onClick={addLanguageScore}>+</button>
-      </div>
-      <div>
-        <label>기타사항</label>
-        {renderNotes()}
-        <button onClick={addNote}>+</button>
-      </div>
-      <div>
-        <button onClick={post}>공고 입력</button>
-      </div>
-    </div> 
+      {isLoading && <Spinner />}
+      {
+        !isLoading &&
+        <div>
+          <div>
+            <label>공고ID</label>
+            <input type="text" value={id} disabled />
+          </div>
+          <div>
+            <label>직무명</label>
+            <input type="text" value={positionName} onChange={e => setPositionName(e.target.value)} />
+          </div>
+          <div>
+            <label>채용구분</label>
+            <input type="text" value={recruitType} onChange={e => setRecruitType(e.target.value)} />
+          </div>
+          <div>
+            <label>채용수준</label>
+            <input type="text" value={recruitLevel} onChange={e => setRecruitLevel(e.target.value)} />
+          </div>
+          <div>
+            <label>근무형태</label>
+            <input type="text" value={workingType} onChange={e => setWorkingType(e.target.value)} />
+          </div>
+          <div>
+            <label>지역명</label>
+            <input type="text" value={districtName} onChange={e => setDistrictName(e.target.value)} />
+          </div>
+          <div>
+            <label>인원수</label>
+            <input type="text" value={headCount} onChange={e => setHeadCount(e.target.value)} />
+          </div>
+          <div>
+            <label>직급</label>
+            <input type="text" value={rank} onChange={e => setRank(e.target.value)} />
+          </div>
+          <div>
+            <label>자격증</label>
+            {renderCertificates()}
+            <button onClick={addCertificate}>+</button>
+          </div>
+          <div>
+            <label>학과</label>
+            {renderDepartments()}
+            <button onClick={addDepartment}>+</button>
+          </div>
+          <div>
+            <label>과목</label>
+            {renderSubjects()}
+            <button onClick={addSubject}>+</button>
+          </div>
+          <div>
+            <label>어학점수</label>
+            {renderLanguageScores()}
+            <button onClick={addLanguageScore}>+</button>
+          </div>
+          <div>
+            <label>기타사항</label>
+            {renderNotes()}
+            <button onClick={addNote}>+</button>
+          </div>
+          <div>
+            <button onClick={put}>공고 수정</button>
+          </div>
+        </div>
+      }
+    </div>
   );
 }
 
-export default AnnouncementInput;
+export default AnnouncementEdit;
