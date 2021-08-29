@@ -10,6 +10,9 @@ function Navigation() {
         <li className="nav_item">
           <a href="/sequence">sequence list</a>
         </li>
+        <li className="nav_item">
+          <a href="/announcement">announcement list</a>
+        </li>
       </ul>
     </div>
   );
