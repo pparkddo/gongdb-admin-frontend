@@ -4,21 +4,16 @@
 
 /*default*/
 body,h1,h2,h3,h4,h5,h6,p,input,button,a{ font-family: 'TossProductSans','NotoSans'; margin:0;}
-body{min-width:1200px;}
+body{}
 ul{ padding:0; margin:0; list-style:none;}
 a{ color: #191f28; text-decoration:none;}
 input{ color: #191f28; text-decoration:none; font-family: Noto Sans KR;}
-.inner{ width:1200px; margin:0 auto; }
+.inner{ max-width:952px; margin:0 auto; }
 .cf::after{ content:""; display:block; clear:both;}
 .blue01{color:#3182f6;}
 /*default-end*/
 
 
-
-.con_wrap {
-    padding-top:60px;/*nav_bar 뒤에 콘텐츠 가려짐 방지*/
-}
-.con_wrap .inner {padding: 80px 15px 80px 15px;}
 
 .con_wrap h1 {
     color: #333d4b;
@@ -26,16 +21,25 @@ input{ color: #191f28; text-decoration:none; font-family: Noto Sans KR;}
     line-height: 25px;
 }
 
-.con01, .con02 , .con03, .con04{
-    margin-bottom: 40px;
+.contants {
+    max-width: 700px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 140px 5% 80px 5%;
+}
+
+.flexbox{
+    width: 100%;
+    display: flex;
+    margin: 0 auto;
+    margin-bottom: 40px;
 }
 
 .contants ul li:first-child{ padding-left:0;}
 
-.con01 li, .con02 li , .con03 li{
-    float: left;
+.flexbox li{
+    width: 100%;
     padding-left: 20px;
 }
 
@@ -44,7 +48,8 @@ input{ color: #191f28; text-decoration:none; font-family: Noto Sans KR;}
 }
 
 input{
-    width: 250px;
+    width: 100%;
+    padding: unset;
     height: 25px;
     font-size: 12px;
     color: #333d4b;
@@ -62,7 +67,6 @@ input:focus{
 
 .con04 button{
    height: 30px;
-   width: 530px;
    border:none;
    border-radius: 5px;
    cursor: pointer;
@@ -105,3 +109,7 @@ input:focus{
     border: 1px solid #ebebeb;
     border-radius: 5px;
   }
+
+/*미디어쿼리*/
+@media screen and (max-width: 1200px){
+}

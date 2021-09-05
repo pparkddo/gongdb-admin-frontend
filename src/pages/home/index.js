@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "./index.css"
 
+
+
 function Home() {
 
   const [companyName, setCompanyName] = useState("");
@@ -34,10 +36,9 @@ function Home() {
   return (
     <div className="con_wrap">
       {/*inner*/}
-      <div className="inner">
-        
+      <div className="#">
         <div className="contants">
-          <ul className="con01 cf">
+          <ul className="con01 flexbox">
             <li>
               <h1>회사명</h1>
               <input type="text" onChange={e => setCompanyName(e.target.value)} />
@@ -48,7 +49,7 @@ function Home() {
             </li>
           </ul>
 
-          <ul className="con02 cf">
+          <ul className="con02 flexbox">
             <li>
               <h1>접수시작일</h1>
               <input type="datetime-local" onChange={e => setReceiptStartTimestamp(e.target.value)} />
@@ -59,7 +60,7 @@ function Home() {
             </li>  
           </ul>
 
-          <ul className="con03 filebox cf">
+          <ul className="con03  flexbox filebox">
             <li>
               <h1>링크</h1>
               <input type="text" onChange={e => setLink(e.target.value)} />
@@ -75,7 +76,7 @@ function Home() {
             {files.length === 0 ? "none" : <p>{files[0].name + " 외 " + (files.length-1) + "개의 파일"}</p>}
           </div>
 
-          <div className="con04">
+          <div className="con04  flexbox">
             <button onClick={post}>차수 입력</button>
           </div>
         </div>
