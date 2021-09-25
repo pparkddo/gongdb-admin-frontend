@@ -25,15 +25,21 @@ function AnnouncementList() {
     getAnnouncements();
   }, []);
 
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (announcements.length === 0) {
+    return (
+      <div>
+        <span>입력된 공고가 없어요</span>
+      </div>
+    );
+  }
+
   return (
     <div>
-      {isLoading && <Spinner />}
-      {
-        announcements.length !== 0 && 
-        <div>
-          {announcements.map(each => renderAnnouncement(each))}
-        </div>
-      }
+      {announcements.map(each => renderAnnouncement(each))}
     </div>
   );
 }

@@ -1,6 +1,8 @@
+import "./index.css";
+
 function Spinner() {
   return (
-    <div>⏳...</div>
+    <div class="spinner">⏳...</div>
   );
 };
 

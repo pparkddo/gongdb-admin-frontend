@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { saveAs } from 'file-saver';
+import Spinner from "../../components/spinner";
 
 function SequenceEdit(props) {
 
   const params = props.match.params;
+  const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState();
   const [companyName, setCompanyName] = useState("");
   const [sequence, setSequence] = useState("");
@@ -16,7 +18,8 @@ function SequenceEdit(props) {
   const getData = sequenceId => {
     fetch(`/api/sequence/${sequenceId}`)
       .then(response => response.json())
-      .then(data => setData(data));
+      .then(data => setData(data))
+      .then(() => setLoading(false));
   };
 
   const put = () => {
@@ -128,6 +131,10 @@ function SequenceEdit(props) {
     setLink(data.link);
     setUploadedFiles(data.files);
   }, [data]);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div>

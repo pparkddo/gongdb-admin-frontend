@@ -1,0 +1,6 @@
+.spinner {
+    position: fixed !important;
+    left: 50%;
+    top: 50%;
+    z-index: 999;
+}

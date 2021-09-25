@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
+import Spinner from "../../components/spinner";
 
 function Sequence() {
-
+  
+  const [isLoading, setLoading] = useState(true);
   const [sequences, setSequences] = useState([]);
 
   const getSequences = () => {
     fetch("/api/sequence")
       .then(response => response.json())
-      .then(data => setSequences(data.content));
+      .then(data => setSequences(data.content))
+      .then(() => setLoading(false));
   };
 
   const renderSequence = sequence => {
@@ -21,16 +24,24 @@ function Sequence() {
   useEffect(() => {
     getSequences();
   }, []);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (sequences.length === 0) {
+    return (
+      <div>
+        <span>입력된 공고 차수가 없어요</span>
+      </div>
+    )
+  }
   
   return (
     <div>
-      <div>
-        <ul>
-          {sequences.length !== 0
-            ? sequences.map(each => renderSequence(each))
-            : "입력된 공고가 없어요"}
-        </ul>
-      </div>
+      <ul>
+        {sequences.map(each => renderSequence(each))}
+      </ul>
     </div>
   );
 }

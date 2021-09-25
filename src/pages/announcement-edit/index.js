@@ -225,74 +225,72 @@ function AnnouncementEdit(props) {
     getAnnouncement(id);
   }, [getAnnouncement, id]);
 
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <div>
-      {isLoading && <Spinner />}
-      {
-        !isLoading &&
-        <div>
-          <div>
-            <label>공고ID</label>
-            <input type="text" value={id} disabled />
-          </div>
-          <div>
-            <label>직무명</label>
-            <input type="text" value={positionName} onChange={e => setPositionName(e.target.value)} />
-          </div>
-          <div>
-            <label>채용구분</label>
-            <input type="text" value={recruitType} onChange={e => setRecruitType(e.target.value)} />
-          </div>
-          <div>
-            <label>채용수준</label>
-            <input type="text" value={recruitLevel} onChange={e => setRecruitLevel(e.target.value)} />
-          </div>
-          <div>
-            <label>근무형태</label>
-            <input type="text" value={workingType} onChange={e => setWorkingType(e.target.value)} />
-          </div>
-          <div>
-            <label>지역명</label>
-            <input type="text" value={districtName} onChange={e => setDistrictName(e.target.value)} />
-          </div>
-          <div>
-            <label>인원수</label>
-            <input type="text" value={headCount} onChange={e => setHeadCount(e.target.value)} />
-          </div>
-          <div>
-            <label>직급</label>
-            <input type="text" value={rank} onChange={e => setRank(e.target.value)} />
-          </div>
-          <div>
-            <label>자격증</label>
-            {renderCertificates()}
-            <button onClick={addCertificate}>+</button>
-          </div>
-          <div>
-            <label>학과</label>
-            {renderDepartments()}
-            <button onClick={addDepartment}>+</button>
-          </div>
-          <div>
-            <label>과목</label>
-            {renderSubjects()}
-            <button onClick={addSubject}>+</button>
-          </div>
-          <div>
-            <label>어학점수</label>
-            {renderLanguageScores()}
-            <button onClick={addLanguageScore}>+</button>
-          </div>
-          <div>
-            <label>기타사항</label>
-            {renderNotes()}
-            <button onClick={addNote}>+</button>
-          </div>
-          <div>
-            <button onClick={put}>공고 수정</button>
-          </div>
-        </div>
-      }
+      <div>
+        <label>공고ID</label>
+        <input type="text" value={id} disabled />
+      </div>
+      <div>
+        <label>직무명</label>
+        <input type="text" value={positionName} onChange={e => setPositionName(e.target.value)} />
+      </div>
+      <div>
+        <label>채용구분</label>
+        <input type="text" value={recruitType} onChange={e => setRecruitType(e.target.value)} />
+      </div>
+      <div>
+        <label>채용수준</label>
+        <input type="text" value={recruitLevel} onChange={e => setRecruitLevel(e.target.value)} />
+      </div>
+      <div>
+        <label>근무형태</label>
+        <input type="text" value={workingType} onChange={e => setWorkingType(e.target.value)} />
+      </div>
+      <div>
+        <label>지역명</label>
+        <input type="text" value={districtName} onChange={e => setDistrictName(e.target.value)} />
+      </div>
+      <div>
+        <label>인원수</label>
+        <input type="text" value={headCount} onChange={e => setHeadCount(e.target.value)} />
+      </div>
+      <div>
+        <label>직급</label>
+        <input type="text" value={rank} onChange={e => setRank(e.target.value)} />
+      </div>
+      <div>
+        <label>자격증</label>
+        {renderCertificates()}
+        <button onClick={addCertificate}>+</button>
+      </div>
+      <div>
+        <label>학과</label>
+        {renderDepartments()}
+        <button onClick={addDepartment}>+</button>
+      </div>
+      <div>
+        <label>과목</label>
+        {renderSubjects()}
+        <button onClick={addSubject}>+</button>
+      </div>
+      <div>
+        <label>어학점수</label>
+        {renderLanguageScores()}
+        <button onClick={addLanguageScore}>+</button>
+      </div>
+      <div>
+        <label>기타사항</label>
+        {renderNotes()}
+        <button onClick={addNote}>+</button>
+      </div>
+      <div>
+        <button onClick={put}>공고 수정</button>
+      </div>
     </div>
   );
 }
