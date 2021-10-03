@@ -4,8 +4,7 @@ SubmitButton.defaultProps = {
 
 function SubmitButton(props) {
   const name = props.children;
-  const onClick = props.onClick;
-  const isLoading = props.isLoading;
+  const { onClick, isLoading, ...buttonConfig } = props; 
 
   const renderName = () => {
     if (isLoading) {
@@ -15,7 +14,7 @@ function SubmitButton(props) {
   };
 
   return (
-    <button className="btn btn-sm" onClick={onClick} disabled={isLoading} {...props}>
+    <button className="btn btn-sm" onClick={onClick} disabled={isLoading} {...buttonConfig}>
       {renderName()}
     </button>
   );
