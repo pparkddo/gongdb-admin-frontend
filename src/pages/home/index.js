@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./index.css"
 
-
+/*부트스트랩*/
 
 function Home() {
 
@@ -36,49 +36,47 @@ function Home() {
   return (
     <div className="con_wrap">
       {/*inner*/}
-      <div className="#">
-        <div className="contants">
-          <ul className="con01 flexbox">
-            <li>
-              <h1>회사명</h1>
-              <input type="text" onChange={e => setCompanyName(e.target.value)} />
-            </li>
-            <li>
-              <h1>차수명</h1>
-              <input type="text" onChange={e => setSequence(e.target.value)} />
-            </li>
-          </ul>
+      <div className="container conbox">
+        <ul className="row">
+          <li className="col-xs-12 col-sm-6">
+            <h1 class="col-12">회사명</h1>
+            <input type="text" class="col-12" onChange={e => setCompanyName(e.target.value)} />
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <h1 class="col-12">차수명</h1>
+            <input type="text" class="col-12" onChange={e => setSequence(e.target.value)} />
+          </li>
+        </ul>
 
-          <ul className="con02 flexbox">
-            <li>
-              <h1>접수시작일</h1>
-              <input type="datetime-local" onChange={e => setReceiptStartTimestamp(e.target.value)} />
-            </li>
-            <li>  
-              <h1>접수종료일</h1>
-              <input type="datetime-local" onChange={e => setReceiptEndTimestamp(e.target.value)} />
-            </li>  
-          </ul>
+        <ul className="row">
+          <li className="col-xs-12 col-sm-6">
+            <h1 class="col-12">접수시작일</h1>
+            <input type="datetime-local" class="col-12" onChange={e => setReceiptStartTimestamp(e.target.value)} />
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <h1 class="col-12">접수종료일</h1>
+            <input type="datetime-local" class="col-12" onChange={e => setReceiptEndTimestamp(e.target.value)} />
+          </li>  
+        </ul>
 
-          <ul className="con03  flexbox filebox">
-            <li>
-              <h1>링크</h1>
-              <input type="text" onChange={e => setLink(e.target.value)} />
-            </li>
-            <li>
-              <h1>첨부파일</h1>
-              <label htmlFor="file">업로드</label>
-              <input type="file" id="file" onChange={e => setFiles(e.target.files)} multiple />
-            </li>
-          </ul>
+        <ul className="row flexbox filebox">
+          <li className="col-xs-12 col-sm-6">
+            <h1 class="col-12">링크</h1>
+            <input type="text" class="col-12" onChange={e => setLink(e.target.value)} />
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <h1 class="col-12">첨부파일</h1>
+            <label htmlFor="file">업로드</label>
+            <input type="file" id="file" class="col-12" onChange={e => setFiles(e.target.files)} multiple />
+          </li>
+        </ul>
 
-          <div>
-            {files.length === 0 ? "none" : <p>{files[0].name + " 외 " + (files.length-1) + "개의 파일"}</p>}
-          </div>
+        <div class="att_box">
+          {files.length === 0 ? "none" : <p>{files[0].name + " 외 " + (files.length-1) + "개의 파일"}</p>}
+        </div>
 
-          <div className="con04  flexbox">
-            <button onClick={post}>차수 입력</button>
-          </div>
+        <div className="con04 flexbox">
+          <button onClick={post}>차수 입력</button>
         </div>
 
       </div>

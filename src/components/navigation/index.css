@@ -2,13 +2,12 @@
 
 /*default*/
 body,h1,h2,h3,h4,h5,h6,p{ font-family: 'TossProductSans','NotoSans'; margin:0;}
-body{min-width:1200px;}
+body{}
 ul{ padding:0; margin:0; list-style:none;}
 a{ color:#222; text-decoration:none;}
-.inner{ width:1200px; margin:0 auto; }
+.inner{ margin:0 auto; }
 .cf::after{ content:""; display:block; clear:both;}
 /*default-end*/
-
 
 .gray700 {color: #4e5968;}
 
@@ -32,6 +31,7 @@ a{ color:#222; text-decoration:none;}
     float: left;
     padding: 12px 10px;
     color: #4e5968;
+    text-decoration: none;
 }
 
 .nav_menu li a:hover{
@@ -39,4 +39,4 @@ a{ color:#222; text-decoration:none;}
     border-radius: 8px;
 }
 
-.nav_item {}
+.nav_item {white-space: nowrap;}

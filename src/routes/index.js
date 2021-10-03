@@ -7,18 +7,21 @@ import SequenceEdit from '../pages/sequence-edit';
 import AnnouncementInput from '../pages/announcement-input';
 import AnnouncementList from '../pages/announcement-list';
 import AnnouncementEdit from '../pages/announcement-edit';
+import "./index.css";
 
 const Root = () => (
   <BrowserRouter>
     <Navigation />
-    <Switch>
-      <Route path="/" component={Home} exact />
-      <Route path="/sequence" component={Sequence} exact />
-      <Route path="/sequence/:id" component={SequenceEdit} exact />
-      <Route path="/sequence/:id/announcement" component={AnnouncementInput} exact />
-      <Route path="/announcement/" component={AnnouncementList} exact />
-      <Route path="/announcement/:id" component={AnnouncementEdit} exact />
-    </Switch>
+    <div className="nav-padding">
+      <Switch>
+        <Route path="/" component={Home} exact />
+        <Route path="/sequence" component={Sequence} exact />
+        <Route path="/sequence/:id" component={SequenceEdit} exact />
+        <Route path="/sequence/:id/announcement" component={AnnouncementInput} exact />
+        <Route path="/announcement/" component={AnnouncementList} exact />
+        <Route path="/announcement/:id" component={AnnouncementEdit} exact />
+      </Switch>
+    </div>
   </BrowserRouter>
 )
 
