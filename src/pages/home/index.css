@@ -1,56 +1,32 @@
 @charset "utf-8";
 
-
-
 /*default*/
-body,h1,h2,h3,h4,h5,h6,p,input,button,a{ font-family: 'TossProductSans','NotoSans'; margin:0;}
+body,h1,h2,h3,h4,h5,h6,p,input,label,button,a{ font-family: 'TossProductSans','NotoSans'; margin:0;}
 body{}
 ul{ padding:0; margin:0; list-style:none;}
 a{ color: #191f28; text-decoration:none;}
-input{ color: #191f28; text-decoration:none; font-family: Noto Sans KR;}
-.inner{ max-width:952px; margin:0 auto; }
+input{ color: #191f28; text-decoration:none;}
 .cf::after{ content:""; display:block; clear:both;}
 .blue01{color:#3182f6;}
+.row {padding:0; margin:0;}
 /*default-end*/
 
 
+.con_wrap .conbox {max-width: 600px!important;}
 
 .con_wrap h1 {
+    font-size: 18px;
+    font-weight: 600;
     color: #333d4b;
-    font-size: 20px;
-    line-height: 25px;
-}
-
-.contants {
-    max-width: 700px;
-    display: flex;
-    flex-direction: column;
-    margin: 0 auto;
-    padding: 140px 5% 80px 5%;
-}
-
-.flexbox{
-    width: 100%;
-    display: flex;
-    margin: 0 auto;
-    margin-bottom: 40px;
-}
-
-.contants ul li:first-child{ padding-left:0;}
-
-.flexbox li{
-    width: 100%;
-    padding-left: 20px;
-}
-
-.con_wrap h1 {
     margin-bottom: 10px;
 }
 
-input{
-    width: 100%;
-    padding: unset;
-    height: 25px;
+.con_wrap .row li{margin-bottom: 60px;}
+
+.contants ul li:first-child{ padding-left:0;}
+
+.con_wrap input{
+    padding: 10px;
     font-size: 12px;
     color: #333d4b;
     background: rgba(0,23,51,0.02);
@@ -65,19 +41,21 @@ input:focus{
     box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
 }
 
-.con04 button{
-   height: 30px;
+.con_wrap .con04 button{
+   display: block;
+   margin: 0 auto;
+   margin-top: -40px;
+   padding: 7px 20px;
    border:none;
    border-radius: 5px;
    cursor: pointer;
    color: #fff;
-   background-color: #3182f6;
-}
- .con04 button:hover{
-    background-color: #1b64da;
+   background-color: #3182f6; 
 }
 
-.filebox input[type="file"] {
+.con_wrap .con04 button:hover{background-color: #1b64da;}
+
+.con_wrap .filebox input[type="file"] {
     position: absolute;
     width: 0;
     height: 0;
@@ -85,23 +63,27 @@ input:focus{
     overflow: hidden;
     border: 0;
   }
+.filebox input:focus {box-shadow:none;}
   
-  .filebox label {
+.con_wrap .filebox label {
     display: inline-block;
-    padding: 5px 20px;
+    padding:10px;
+    width: 80px;
     font-size: 12px;
+    text-align: center;
     color: #333;
     vertical-align: middle;
     background-color: #fdfdfd;
     cursor: pointer;
     border: 1px solid #ebebeb;
     border-radius: 5px;
+    font-weight: 600;
   }
+  .con_wrap .filebox label:hover{ background: rgba(2,32,71,.05); }
   
   /* named upload */
-  .filebox .upload-name {
+  .con_wrap .filebox .upload-name {
     display: inline-block;
-    height: 35px;
     font-size:18px; 
     padding: 0 10px;
     vertical-align: middle;
@@ -109,7 +91,41 @@ input:focus{
     border: 1px solid #ebebeb;
     border-radius: 5px;
   }
+  .con_wrap .att_box {
+    width: 185px;
+    font-size: 12px;
+    padding: 0px 10px;
+    line-height: 37px;
+    transform: translate(390px, -100px);
+    color: #333d4b;
+    background: rgba(0,23,51,0.02);
+    border-radius: 5px;
+    border: 1px solid #f2f2f2;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* 라인수 */
+    -webkit-box-orient: vertical;
+    word-wrap:break-word; 
+}
 
-/*미디어쿼리*/
-@media screen and (max-width: 1200px){
+.con_wrap .con04 {text-align: center;}
+
+
+
+@media screen and (max-width: 600px){
+    .con_wrap .att_box {transform: translate(385px, -100px);}
+}
+@media screen and (max-width: 585px){
+    .con_wrap .att_box {transform: translate(380px, -100px);}
+}
+@media screen and (max-width: 580px){
+    .con_wrap .att_box {transform: translate(375px, -100px);}
+}
+
+@media screen and (max-width: 575px){
+    .con_wrap h1 {font-size:14px;}
+    .con_wrap input {font-size:10px;}
+    .con_wrap .row li {margin-bottom: 30px;}
 }
