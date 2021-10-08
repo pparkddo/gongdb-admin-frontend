@@ -1,9 +1,15 @@
 import { useState } from "react";
-import "./index.css"
+import { useHistory } from "react-router";
+import { fail } from "../../components/alert";
+import SubmitButton from "../../components/submit-button";
+import { fetchWrapper } from "../../helpers/fetch-wrapper";
+import "./index.css";
 
 /*부트스트랩*/
 
 function Home() {
+
+  const history = useHistory();
 
   const [companyName, setCompanyName] = useState("");
   const [sequence, setSequence] = useState("");
@@ -11,6 +17,7 @@ function Home() {
   const [receiptEndTimestamp, setReceiptEndTimestamp] = useState("");
   const [link, setLink] = useState("");
   const [files, setFiles] = useState([]);
+  const [isLoading, setLoading] = useState(false);
 
   const post = () => {
     const content = {
@@ -27,10 +34,18 @@ function Home() {
       formData.append("files", file);
     }
 
-    fetch("/api/sequence", {
-        method: "POST",
-        body: formData,
-    }).then(console.log);
+    setLoading(true);
+    fetchWrapper.post("/api/sequence", formData)
+      .then(data => history.replace("/sequence/submit-complete", {message: data.message}))
+      .catch(handleError);
+  };
+
+  const handleError = error => {
+    console.log(error);
+    console.log(error.data);
+    const errorContent = JSON.stringify(error);
+    fail(errorContent);
+    setLoading(false);
   };
 
   return (
@@ -76,7 +91,7 @@ function Home() {
         </div>
 
         <div className="con04 flexbox">
-          <button onClick={post}>차수 입력</button>
+          <SubmitButton onClick={post} isLoading={isLoading}>차수 입력</SubmitButton>
         </div>
 
       </div>

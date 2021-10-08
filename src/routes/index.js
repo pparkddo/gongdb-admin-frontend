@@ -7,6 +7,7 @@ import SequenceEdit from '../pages/sequence-edit';
 import AnnouncementInput from '../pages/announcement-input';
 import AnnouncementList from '../pages/announcement-list';
 import AnnouncementEdit from '../pages/announcement-edit';
+import SequenceSubmitComplete from '../pages/sequence-submit-complete';
 import "./index.css";
 
 const Root = () => (
@@ -16,6 +17,7 @@ const Root = () => (
       <Switch>
         <Route path="/" component={Home} exact />
         <Route path="/sequence" component={Sequence} exact />
+        <Route path="/sequence/submit-complete" component={SequenceSubmitComplete} exact />
         <Route path="/sequence/:id" component={SequenceEdit} exact />
         <Route path="/sequence/:id/announcement" component={AnnouncementInput} exact />
         <Route path="/announcement/" component={AnnouncementList} exact />
