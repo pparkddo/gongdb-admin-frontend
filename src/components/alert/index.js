@@ -4,8 +4,8 @@ function success(message) {
   toastifyToast(message, {type: "success"});
 }
 
-function error(message) {
+function fail(message) {
   toastifyToast(message, {type: "error"});
 }
 
-export { success, error };
+export { success, fail };
