@@ -7,7 +7,7 @@ function Sequence() {
   const [sequences, setSequences] = useState([]);
 
   const getSequences = () => {
-    fetch("/api/sequence")
+    fetch("/api/sequence", {cache: "no-cache"})
       .then(response => response.json())
       .then(data => setSequences(data.content))
       .then(() => setLoading(false));

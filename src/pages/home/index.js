@@ -17,7 +17,7 @@ function Home() {
   const [receiptEndTimestamp, setReceiptEndTimestamp] = useState("");
   const [link, setLink] = useState("");
   const [files, setFiles] = useState([]);
-  const [isLoading, setLoading] = useState(false);
+  const [isFetching, setFetching] = useState(false);
 
   const post = () => {
     const content = {
@@ -34,18 +34,21 @@ function Home() {
       formData.append("files", file);
     }
 
-    setLoading(true);
+    setFetching(true);
     fetchWrapper.post("/api/sequence", formData)
-      .then(data => history.replace("/sequence/submit-complete", {message: data.message}))
+      .then(response => response.json())
+      .then(data => history.replace("/sequence/submit-complete", {
+          message: data.message,
+          previousPath: document.location.pathname
+        }))
       .catch(handleError);
   };
 
   const handleError = error => {
-    console.log(error);
-    console.log(error.data);
+    console.log(error, error.data);
     const errorContent = JSON.stringify(error);
     fail(errorContent);
-    setLoading(false);
+    setFetching(false);
   };
 
   return (
@@ -91,7 +94,7 @@ function Home() {
         </div>
 
         <div className="con04 flexbox">
-          <SubmitButton onClick={post} isLoading={isLoading}>차수 입력</SubmitButton>
+          <SubmitButton onClick={post} isLoading={isFetching} useSpinner>차수 입력</SubmitButton>
         </div>
 
       </div>

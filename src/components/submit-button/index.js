@@ -3,14 +3,14 @@ SubmitButton.defaultProps = {
 };
 
 function SubmitButton(props) {
-  const name = props.children;
-  const { onClick, isLoading, ...buttonConfig } = props; 
+  const content = props.children || props.content;
+  const { onClick, isLoading, useSpinner, ...buttonConfig } = props; 
 
   const renderName = () => {
-    if (isLoading) {
+    if (isLoading && useSpinner) {
       return <span className="spinner-border spinner-border-sm"></span>;
     }
-    return <span>{name}</span>;
+    return <span>{content}</span>;
   };
 
   return (

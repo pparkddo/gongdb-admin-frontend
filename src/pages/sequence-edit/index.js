@@ -1,10 +1,15 @@
-import { useEffect, useState } from "react";
 import { saveAs } from 'file-saver';
+import { useHistory } from "react-router";
+import { useEffect, useState } from "react";
+import { fetchWrapper } from "../../helpers/fetch-wrapper";
+import { fail, success } from "../../components/alert";
 import Spinner from "../../components/spinner";
+import SubmitButton from "../../components/submit-button";
 
 function SequenceEdit(props) {
 
   const params = props.match.params;
+  const history = useHistory();
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState();
   const [companyName, setCompanyName] = useState("");
@@ -14,6 +19,7 @@ function SequenceEdit(props) {
   const [link, setLink] = useState("");
   const [files, setFiles] = useState([]);  // 새로 추가할 파일
   const [uploadedFiles, setUploadedFiles] = useState([]); // 기존에 들어있는 파일들
+  const [isFetching, setFetching] = useState();
 
   const getData = sequenceId => {
     fetch(`/api/sequence/${sequenceId}`)
@@ -23,6 +29,17 @@ function SequenceEdit(props) {
   };
 
   const put = () => {
+    setFetching(true);
+    fetchWrapper.put(`/api/sequence/${data.id}`, getFormData())
+      .then(response => response.json())
+      .then(data => history.replace("/sequence/submit-complete", {
+          message: data.message,
+          previousPath: document.location.pathname
+        }))
+      .catch(handleError);
+  };
+
+  const getFormData = () => {
     const content = {
       companyName: companyName,
       sequence: sequence,
@@ -37,33 +54,41 @@ function SequenceEdit(props) {
       formData.append("files", file);
     }
 
-    fetch(`/api/sequence/${data.id}`, {
-        method: "PUT",
-        body: formData,
-    }).then(console.log);
+    return formData;
   };
 
   const deleteSequence = () => {
-    fetch(`/api/sequence/${data.id}`, {
-        method: "DELETE"
-    }).then(console.log);
+    setFetching(true);
+    fetchWrapper.delete(`/api/sequence/${data.id}`)
+      .then(response => response.json())
+      .then(data => history.replace("/sequence/delete-complete", {
+          message: data.message,
+        }))
+      .catch(handleError);
   };
 
   const download = (fileId, fileName) => {
-    fetch(`/api/file/${fileId}`)
+    setFetching(true);
+    fetchWrapper.get(`/api/file/${fileId}`)
       .then(response => response.blob())
-      .then(blob => saveAs(blob, fileName));
-  };
-
-  const handleDeleteFile = fileId => {
-    deleteAttachment(data.id, fileId);
-    setUploadedFiles(uploadedFiles.filter(value => value.id !== fileId));
+      .then(blob => saveAs(blob, fileName))
+      .then(() => setFetching(false))
+      .catch(handleError);
   };
 
   const deleteAttachment = (sequenceId, fileId) => {
-    fetch(`/api/sequence/${sequenceId}/attachment/${fileId}`, {
-      method: "DELETE" 
-    }).then(console.log);
+    fetchWrapper.delete(`/api/sequence/${sequenceId}/attachment/${fileId}`)
+      .then(response => response.json())
+      .then(data => success(data.message))
+      .then(() => setUploadedFiles(uploadedFiles.filter(value => value.id !== fileId)))
+      .catch(handleError);
+  };
+
+  const handleError = error => {
+    console.log(error, error.data);
+    const errorContent = JSON.stringify(error);
+    fail(errorContent);
+    setFetching(false);
   };
 
   const renderForm = () => (
@@ -100,8 +125,16 @@ function SequenceEdit(props) {
         <input type="file" onChange={e => setFiles(e.target.files)} multiple />
       </div>
       <div>
-        <button onClick={put}>차수 수정</button>
-        <button onClick={deleteSequence}>삭제</button>
+        <SubmitButton
+          className="btn btn-primary"
+          onClick={put}
+          isLoading={isFetching}
+          content="차수 수정" />
+        <SubmitButton
+          className="btn btn-danger"
+          onClick={deleteSequence}
+          isLoading={isFetching}
+          content="삭제" />
       </div>
     </div>
   );
@@ -109,8 +142,17 @@ function SequenceEdit(props) {
   const renderFile = file => {
     return (
       <li key={file.id}>
-        <button onClick={() => download(file.id, file.fileName)}>{file.id}</button>: {JSON.stringify(file)}
-        <button onClick={() => handleDeleteFile(file.id)}>삭제</button>
+        <SubmitButton
+          className="btn btn-link"
+          onClick={() => download(file.id, file.fileName)}
+          content={file.id}
+          isLoading={isFetching} />
+        <span>: {JSON.stringify(file)} </span>
+        <SubmitButton
+          className="btn btn-danger"
+          onClick={() => deleteAttachment(data.id, file.id)}
+          content="삭제"
+          isLoading={isFetching} />
       </li>
     );
   };

@@ -55,5 +55,5 @@ const handleResponse = response => {
       throw new ResponseError(response.statusText, response.status, data);
     });
   }
-  return response.json();
+  return response;
 };

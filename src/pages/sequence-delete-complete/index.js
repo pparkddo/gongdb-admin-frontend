@@ -1,11 +1,9 @@
 import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
 
-function SequenceSubmitComplete(props) {
+function SequenceDeleteComplete(props) {
 
   const history = useHistory();
   const message = props.location.state.message;
-  const previousPath = props.location.state.previousPath;
 
   const moveToSequenceListPage = () => history.replace("/sequence");
 
@@ -23,13 +21,8 @@ function SequenceSubmitComplete(props) {
           </button>
         </div>
       </div>
-      <div className="row justify-content-center mt-3">
-        <div className="col-auto">
-          <Link to={previousPath} replace className="btn btn-link">입력 화면으로</Link>
-        </div>
-      </div>
     </div>
   );
 }
 
-export default SequenceSubmitComplete;
+export default SequenceDeleteComplete;
