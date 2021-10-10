@@ -1,9 +1,14 @@
-import { useEffect, useState, useCallback } from "react";
+import {useCallback, useEffect, useState} from "react";
 import Spinner from "../../components/spinner";
+import {fetchWrapper} from "../../helpers/fetch-wrapper";
+import {fail} from "../../components/alert";
+import {useHistory} from "react-router-dom";
+import SubmitButton from "../../components/submit-button";
 
 function AnnouncementEdit(props) {
 
   const id = props.match.params.id;
+  const history = useHistory();
   const [isLoading, setLoading] = useState(true);
   const [positionName, setPositionName] = useState("");
   const [recruitType, setRecruitType] = useState("");
@@ -17,6 +22,7 @@ function AnnouncementEdit(props) {
   const [subjects, setSubjects] = useState([]);
   const [languageScores, setLanguageScores] = useState([]);
   const [notes, setNotes] = useState([]);
+  const [isFetching, setFetching] = useState(false);
 
   const getAnnouncement = useCallback(id => {
     fetch(`/api/announcement/${id}`)
@@ -63,11 +69,34 @@ function AnnouncementEdit(props) {
       notes: notes,
     };
 
-    fetch(`/api/announcement/${id}`, {
-        method: "PUT",
-        body: JSON.stringify(content),
-        headers: {"Content-Type": "application/json;charset=utf8"}
-    }).then(console.log);
+    setFetching(true);
+    fetchWrapper.put(
+      `/api/announcement/${id}`,
+      JSON.stringify(content),
+      {headers: {"Content-Type": "application/json;charset=utf8"}})
+      .then(response => response.json())
+      .then(data => history.replace("/announcement/submit-complete", {
+        message: data.message,
+        previousPath: document.location.pathname
+      }))
+      .catch(handleError);
+  };
+
+  const deleteAnnouncement = () => {
+    setFetching(true);
+    fetchWrapper.delete(`/api/announcement/${id}`)
+      .then(response => response.json())
+      .then(data => history.replace("/announcement/delete-complete", {
+        message: data.message,
+      }))
+      .catch(handleError);
+  };
+
+  const handleError = error => {
+    console.log(error, error.data);
+    const errorContent = JSON.stringify(error);
+    fail(errorContent);
+    setFetching(false);
   };
 
   const renderCertificates = () => {
@@ -289,7 +318,16 @@ function AnnouncementEdit(props) {
         <button onClick={addNote}>+</button>
       </div>
       <div>
-        <button onClick={put}>공고 수정</button>
+        <SubmitButton
+          className="btn btn-primary"
+          onClick={put}
+          isLoading={isFetching}
+          content="공고 수정"/>
+        <SubmitButton
+          className="btn btn-danger"
+          onClick={deleteAnnouncement}
+          isLoading={isFetching}
+          content="삭제" />
       </div>
     </div>
   );
