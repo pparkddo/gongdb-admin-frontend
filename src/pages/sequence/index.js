@@ -17,6 +17,7 @@ function Sequence() {
     return (
       <li key={sequence.id}>
         <a href={`/sequence/${sequence.id}`}>{sequence.id}</a>: {JSON.stringify(sequence)}
+        <a href={`/sequence/${sequence.id}/announcement`}>공고입력</a>
       </li>
     );
   };
