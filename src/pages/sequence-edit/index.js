@@ -1,5 +1,5 @@
 import { saveAs } from 'file-saver';
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchWrapper } from "../../helpers/fetch-wrapper";
 import { fail, success } from "../../components/alert";

@@ -1,11 +1,11 @@
 import { useHistory } from "react-router-dom";
 
-function SequenceDeleteComplete(props) {
+function AnnouncementDeleteComplete(props) {
 
   const history = useHistory();
   const message = props.location.state.message;
 
-  const moveToSequenceListPage = () => history.replace("/sequence");
+  const moveToAnnouncementListPage = () => history.replace("/announcement");
 
   return (
     <div className="container">
@@ -16,8 +16,8 @@ function SequenceDeleteComplete(props) {
       </div>
       <div className="row justify-content-center">
         <div className="col-auto">
-          <button className="btn btn-primary" onClick={moveToSequenceListPage}>
-            공고 차수 목록으로
+          <button className="btn btn-primary" onClick={moveToAnnouncementListPage}>
+            공고 목록으로
           </button>
         </div>
       </div>
@@ -25,4 +25,4 @@ function SequenceDeleteComplete(props) {
   );
 }
 
-export default SequenceDeleteComplete;
+export default AnnouncementDeleteComplete;

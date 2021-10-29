@@ -1,8 +1,13 @@
-import { useState } from "react";
+import {useState} from "react";
+import SubmitButton from "../../components/submit-button";
+import {fetchWrapper} from "../../helpers/fetch-wrapper";
+import {fail} from "../../components/alert";
+import {useHistory} from "react-router-dom";
 
 function AnnouncementInput(props) {
 
   const id = props.match.params.id;
+  const history = useHistory();
   const [positionName, setPositionName] = useState("");
   const [recruitType, setRecruitType] = useState("");
   const [recruitLevel, setRecruitLevel] = useState("");
@@ -15,6 +20,7 @@ function AnnouncementInput(props) {
   const [subjects, setSubjects] = useState([]);
   const [languageScores, setLanguageScores] = useState([]);
   const [notes, setNotes] = useState([]);
+  const [isFetching, setFetching] = useState(false);
 
   const post = () => {
     const content = {
@@ -32,11 +38,24 @@ function AnnouncementInput(props) {
       notes: notes,
     };
 
-    fetch(`/api/sequence/${id}/announcement`, {
-        method: "POST",
-        body: JSON.stringify(content),
-        headers: {"Content-Type": "application/json;charset=utf8"}
-    }).then(console.log);
+    setFetching(true);
+    fetchWrapper.post(
+      `/api/sequence/${id}/announcement`,
+      JSON.stringify(content),
+      {headers: {"Content-Type": "application/json;charset=utf8"}})
+      .then(response => response.json())
+      .then(data => history.replace("/announcement/submit-complete", {
+        message: data.message,
+        previousPath: document.location.pathname
+      }))
+      .catch(handleError);
+  };
+
+  const handleError = error => {
+    console.log(error, error.data);
+    const errorContent = JSON.stringify(error);
+    fail(errorContent);
+    setFetching(false);
   };
 
   const renderCertificates = () => {
@@ -246,9 +265,14 @@ function AnnouncementInput(props) {
         <button onClick={addNote}>+</button>
       </div>
       <div>
-        <button onClick={post}>공고 입력</button>
+        <SubmitButton
+          className="btn btn-primary"
+          onClick={post}
+          isLoading={isFetching}
+          useSpinner
+          content="공고 입력" />
       </div>
-    </div> 
+    </div>
   );
 }
 
