@@ -1,5 +1,6 @@
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import "./index.css";
 
 function SequenceSubmitComplete(props) {
 
@@ -10,25 +11,32 @@ function SequenceSubmitComplete(props) {
   const moveToSequenceListPage = () => history.replace("/sequence");
 
   return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-auto">
-          <p>{message}</p>
+    <div className="row con_wrap">
+      {/*inner*/}
+      <div className="container conbox">
+        <div className="justify-content-center">
+          <div className="col-auto">
+            <p>{message}</p>
+          </div>
         </div>
-      </div>
-      <div className="row justify-content-center">
-        <div className="col-auto">
-          <button className="btn btn-primary" onClick={moveToSequenceListPage}>
-            공고 차수 목록으로
-          </button>
+
+        <div class="row">
+          <div className="col-sm-6 justify-content-center">
+            <div className="col-auto">
+              <button className="btn" onClick={moveToSequenceListPage}>
+                공고 차수 목록 바로가기
+              </button>
+            </div>
+          </div>
+          <div className="col-sm-6 justify-content-center">
+            <div className="col-auto">
+              <Link to={previousPath} replace className="btn btn-link">입력 화면 바로가기</Link>
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="row justify-content-center mt-3">
-        <div className="col-auto">
-          <Link to={previousPath} replace className="btn btn-link">입력 화면으로</Link>
-        </div>
-      </div>
-    </div>
+      </div> 
+      {/*inner*/}
+    </div>  
   );
 }
 

@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+/*default*/
+body,h1,h2,h3,h4,h5,h6,p,input,label,button,a{ font-family: 'TossProductSans','NotoSans'; margin:0;}
+.row{margin: 0 auto;}
+.blue01{color:#3182f6;}
+/*default-end*/
+
+.con_wrap .btn{
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 20px;
+    white-space: nowrap;
+    color: #fff;
+    background-color: #3182f6;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .2s ease,color .1s ease;
+ }
+ .con_wrap .btn:hover{color: #fff; background-color: #1b64da;}
+ .con_wrap .btn:focus{box-shadow: none;}

@@ -191,7 +191,7 @@ function AnnouncementInput(props) {
   };
 
   return (
-    <div>
+    <div class="con_wrap">
       <div>
         <label>직무명</label>
         <input type="text" value={positionName} onChange={e => setPositionName(e.target.value)} />
