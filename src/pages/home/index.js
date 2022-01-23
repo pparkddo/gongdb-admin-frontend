@@ -51,6 +51,18 @@ function Home() {
     setFetching(false);
   };
 
+  const renderFiles = (files) => {
+    return files.length === 0
+        ? null
+        : Array.from(files).map(file => renderFile(file))
+  };
+
+  const renderFile = (file) => {
+    return <div className="att_box col-9">
+             <p>{file.name}</p>
+           </div>;
+  };
+
   return (
     <div className="con_wrap">
       {/*inner*/}
@@ -74,7 +86,7 @@ function Home() {
           <li className="col-xs-12 col-sm-6">
             <h5 class="col-12">접수종료일</h5>
             <input type="datetime-local" class="col-12" onChange={e => setReceiptEndTimestamp(e.target.value)} />
-          </li>  
+          </li>
         </ul>
 
         <ul className="row flexbox filebox">
@@ -89,12 +101,9 @@ function Home() {
             <h5 className="col-12">첨부파일</h5>
             <label htmlFor="file" className="col-xs-12 buttonFile">+</label>
             <input type="file" id="file" class="col-xs-12" onChange={e => setFiles(e.target.files)} multiple />
-
-            <div class="att_box col-9">
-              {files.length === 0 ? "none" : <p>{files[0].name + " 외 " + (files.length-1) + "개의 파일"}</p>}
-            </div>
+            {renderFiles(files)}
           </li>
-        
+
         </ul>
         <div className="text-center">
           <SubmitButton onClick={post} isLoading={isFetching} useSpinner>차수 입력</SubmitButton>
@@ -102,10 +111,10 @@ function Home() {
 
       </div>
       {/*inner*/}
-    </div> 
-    
+    </div>
+
   );
-  
+
 }
 
 
