@@ -1,5 +1,6 @@
 import { Link, useHistory } from "react-router-dom";
 import "./index.css";
+import completeImage from "../../images/complete.png";
 
 function SequenceSubmitComplete(props) {
 
@@ -10,30 +11,28 @@ function SequenceSubmitComplete(props) {
   const moveToSequenceListPage = () => history.replace("/sequence");
 
   return (
-    <div className="row con_wrap">
+    <div className="con_wrap">
       {/*inner*/}
-      <div className="container conbox">
-        <div className="justify-content-center">
-          <div className="col-auto">
-            <p>{message}</p>
+      <div className="container sequence-submit-complete">
+        <div className="com-img">
+          <img src={completeImage}/>
+        </div>
+        <div>
+          <h3 className="compl-mes">{message}</h3>
+        </div>
+        <div className="row button-wrap">
+          <div className="col-xs-12 col-sm-6">
+            <button className="btn" onClick={moveToSequenceListPage}>
+              차수 목록 바로가기
+            </button>
+          </div>
+          <div className="col-xs-12 col-sm-6">
+            <Link to={previousPath} replace className="btn btn-link">
+              입력 화면 바로가기
+            </Link>
           </div>
         </div>
-
-        <div class="row">
-          <div className="col-sm-6 justify-content-center">
-            <div className="col-auto">
-              <button className="btn" onClick={moveToSequenceListPage}>
-                공고 차수 목록 바로가기
-              </button>
-            </div>
-          </div>
-          <div className="col-sm-6 justify-content-center">
-            <div className="col-auto">
-              <Link to={previousPath} replace className="btn btn-link">입력 화면 바로가기</Link>
-            </div>
-          </div>
-        </div>
-      </div> 
+      </div>
       {/*inner*/}
     </div>  
   );

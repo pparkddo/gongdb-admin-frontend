@@ -1,6 +1,1 @@
-.nav-padding {
-  padding-top: 150px;
-}
-@media screen and (max-width: 768px){
-  .nav-padding{padding-top:120px;}
-}
+.nav-padding { padding: 160px 0 100px 0;}

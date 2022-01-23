@@ -1,4 +1,7 @@
 import { Link, useHistory } from "react-router-dom";
+import "./index.css";
+
+import completeImage from "../../images/complete.png";
 
 function AnnouncementSubmitComplete(props) {
 
@@ -9,25 +12,32 @@ function AnnouncementSubmitComplete(props) {
   const moveToAnnouncementListPage = () => history.replace("/announcement");
 
   return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-auto">
-          <p>{message}</p>
+    <div className="con_wrap">
+      {/*inner*/}
+      <div className="container announcement-submit-complete">
+        <div className="com-img text-center">
+          <img src={completeImage} />
         </div>
-      </div>
-      <div className="row justify-content-center">
-        <div className="col-auto">
-          <button className="btn btn-primary" onClick={moveToAnnouncementListPage}>
-            공고 목록으로
-          </button>
+        <div>
+          <h3 className="compl-mes">{message}</h3>
         </div>
-      </div>
-      <div className="row justify-content-center mt-3">
-        <div className="col-auto">
-          <Link to={previousPath} replace className="btn btn-link">입력 화면으로</Link>
+
+        <div className="row button-wrap">
+          <div className="col-xs-12 col-sm-6">
+            <button className="btn" onClick={moveToAnnouncementListPage}>
+              차수 목록 바로가기
+            </button>
+          </div>
+          <div className="col-xs-12 col-sm-6">
+            <Link to={previousPath} replace className="btn btn-link">
+              입력 화면 바로가기
+            </Link>
+          </div>
         </div>
+
       </div>
-    </div>
+      {/*inner*/}
+    </div> 
   );
 }
 

@@ -1,4 +1,7 @@
 import { useHistory } from "react-router-dom";
+import "./index.css";
+import completeImage from "../../images/complete.png";
+
 
 function AnnouncementDeleteComplete(props) {
 
@@ -8,20 +11,23 @@ function AnnouncementDeleteComplete(props) {
   const moveToAnnouncementListPage = () => history.replace("/announcement");
 
   return (
-    <div className="container">
-      <div className="row justify-content-center">
-        <div className="col-auto">
-          <p>{message}</p>
+    <div className="con_wrap">
+      {/*inner*/}
+      <div className="container announcement-delete-complete">
+        <div className="com-img">
+          <img src={completeImage}/>
         </div>
-      </div>
-      <div className="row justify-content-center">
-        <div className="col-auto">
-          <button className="btn btn-primary" onClick={moveToAnnouncementListPage}>
+        <div>
+          <h1 className="compl-mes">{message}</h1>
+        </div>
+        <div className="button-wrap">
+          <button className="btn" onClick={moveToAnnouncementListPage}>
             공고 목록으로
           </button>
         </div>
       </div>
-    </div>
+      {/*inner*/}
+    </div>  
   );
 }
 

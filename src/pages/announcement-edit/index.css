@@ -1,0 +1,7 @@
+@charset "utf-8";
+
+.announcement-edit-wrap .plus-btn-wrap li input{width: calc(100% - 50px); margin-right: 11px;margin-bottom: 10px;}
+.announcement-edit-wrap .plus-btn-wrap li div .mi-btn{background:#fff; border:1px solid #eee; color:#0d6efd; width:39px; padding:6px 8px 10px 8px; line-height: normal;}
+.announcement-edit-wrap .plus-btn-wrap li div{margin: 0 auto;}
+.announcement-edit-wrap .plus-btn-wrap li .btn-primary{ width:100%; }
+.announcement-edit-wrap .min-100 {min-width: 100px;}

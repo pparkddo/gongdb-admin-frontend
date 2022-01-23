@@ -29,9 +29,12 @@ a{ color:#222; text-decoration:none;}
 
 .nav_menu li a{
     float: left;
-    padding: 12px 10px;
+    padding: 14px 19px;
     color: #4e5968;
     text-decoration: none;
+    font-weight: 600;
+    line-height: 20px;
+    white-space: nowrap;
 }
 
 .nav_menu li a:hover{

@@ -1,8 +1,10 @@
 @charset "utf-8";
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
 
 /*default*/
-body,h1,h2,h3,h4,h5,h6,p,input,label,button,a{ font-family: 'TossProductSans','NotoSans'; margin:0;}
-body{}
+body,h1,h2,h3,h4,h5,h6,p,input,label,button,a,span { font-family: 'Spoqa Han Sans Neo','AppleSDGothicNeo','TossProductSans','NotoSans'; margin:0; color: #4e5968;}
+.con_wrap .conbox  {max-width: 600px!important; }
+.con_wrap p { color: rgb(107, 118, 132); }
 ul{ padding:0; margin:0; list-style:none;}
 a{ color: #191f28; text-decoration:none;}
 input{ color: #191f28; text-decoration:none;}
@@ -11,21 +13,16 @@ input{ color: #191f28; text-decoration:none;}
 .row {padding:0; margin:0;}
 /*default-end*/
 
+.con_wrap h5 { font-weight: 500; margin-bottom: 10px; }
 
-.con_wrap .conbox {max-width: 600px!important;}
-
-.con_wrap h1 {
-    font-size: 18px;
-    font-weight: 600;
-    color: #333d4b;
-    margin-bottom: 10px;
-}
-
-.con_wrap .row li{margin-bottom: 60px;}
+.con_wrap .row > li{margin-bottom: 60px;}
 
 .contants ul li:first-child{ padding-left:0;}
 
+.com-img img{width: 100%; text-align: center; padding-bottom:60px; max-width: 200px;}
+
 .con_wrap input{
+    width:100%;
     padding: 10px;
     font-size: 12px;
     color: #333d4b;
@@ -35,51 +32,21 @@ input{ color: #191f28; text-decoration:none;}
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
-input:focus{
-    outline: 0;
-    border-color: #80bdff;
-    box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);
-}
+input:focus{ outline: 0;border-color: #80bdff;box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 25%);}
 
-.con_wrap .con04 button{
-   display: block;
-   margin: 0 auto;
-   margin-top: -40px;
-   padding: 7px 20px;
-   border:none;
-   border-radius: 5px;
-   cursor: pointer;
-   color: #fff;
-   background-color: #3182f6; 
-}
+.btn-primary:focus {box-shadow: none !important; background-color: #3182f6 !important;}
+.btn-check:focus+.btn-primary {box-shadow:none;}
 
-.con_wrap .con04 button:hover{background-color: #1b64da;}
+/*버튼스타일*/
+.con_wrap button { margin: 0 auto; padding: 14px 18px; border:none; border-radius: 8px; cursor: pointer; background-color: #3182f6; }
+.con_wrap button:hover{background-color: #1B64DB; }
+.con_wrap .buttonFile { margin: 0 auto; padding: 14px 18px; border:none; border-radius: 8px; cursor: pointer; background-color: #3182f6;color: #fff;font-weight: 900; line-height: 12px; margin-bottom: 10px; width: 100%; text-align: center; }
+.con_wrap .buttonFile:hover{background-color: #1B64DB;    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out }
+.con_wrap button span { color: #fff; font-size: 15px; }
+.con_wrap .btn-primary { border:none; border-radius: 8px; font-size: 15px;}
 
-.con_wrap .filebox input[type="file"] {
-    position: absolute;
-    width: 0;
-    height: 0;
-    padding: 0;
-    overflow: hidden;
-    border: 0;
-  }
-.filebox input:focus {box-shadow:none;}
-  
-.con_wrap .filebox label {
-    display: inline-block;
-    padding:10px;
-    width: 80px;
-    font-size: 12px;
-    text-align: center;
-    color: #333;
-    vertical-align: middle;
-    background-color: #fdfdfd;
-    cursor: pointer;
-    border: 1px solid #ebebeb;
-    border-radius: 5px;
-    font-weight: 600;
-  }
-  .con_wrap .filebox label:hover{ background: rgba(2,32,71,.05); }
+.con_wrap .filebox input[type="file"] { position: absolute;width: 0; height: 0; padding: 0;overflow: hidden; border: 0;}
+  .con_wrap .filebox input[type="file"] {box-shadow:none;}
   
   /* named upload */
   .con_wrap .filebox .upload-name {
@@ -92,40 +59,36 @@ input:focus{
     border-radius: 5px;
   }
   .con_wrap .att_box {
-    width: 185px;
+    width: 100%;
+    overflow: auto;
     font-size: 12px;
     padding: 0px 10px;
     line-height: 37px;
-    transform: translate(390px, -100px);
     color: #333d4b;
     background: rgba(0,23,51,0.02);
     border-radius: 5px;
     border: 1px solid #f2f2f2;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1; /* 라인수 */
-    -webkit-box-orient: vertical;
-    word-wrap:break-word; 
+    display: inline-block;
+    white-space: nowrap;
 }
 
 .con_wrap .con04 {text-align: center;}
 
+.con_wrap .att_box p {margin-bottom: 0;    overflow: hidden; text-overflow: ellipsis;}
 
+/*입력완료메세지 */
+.compl-mes{font-weight: 700; margin-bottom:60px; text-align: center;}
+.text-right{text-align: right;}
 
-@media screen and (max-width: 600px){
-    .con_wrap .att_box {transform: translate(385px, -100px);}
-}
-@media screen and (max-width: 585px){
-    .con_wrap .att_box {transform: translate(380px, -100px);}
-}
-@media screen and (max-width: 580px){
-    .con_wrap .att_box {transform: translate(375px, -100px);}
-}
+/*btn-danger스타일설정*/
+.con_wrap .btn-danger {background: #fdfdfd; border: solid 1px #ebebeb;color: #333d4b;}
+.con_wrap .btn-danger:hover {background: #f2f2f2; border: solid 1px#f2f2f2;color:#333d4b;}
+.con_wrap .btn-danger:focus {background: #f2f2f2; border: solid 1px#f2f2f2;color: #333d4b; box-shadow:0 0 0 0.25rem rgb(13 110 253 / 25%);}
+.con_wrap .btn-danger:active {background: #f2f2f2; border: solid 1px#f2f2f2;color: #333d4b; box-shadow:0 0 0 0.25rem rgb(13 110 253 / 25%);}
+.con_wrap .btn-danger:active:focus{box-shadow:0 0 0 0.25rem rgb(13 110 253 / 25%);}
 
 @media screen and (max-width: 575px){
-    .con_wrap h1 {font-size:14px;}
-    .con_wrap input {font-size:10px;}
+    .con_wrap input {font-size:14px;}
     .con_wrap .row li {margin-bottom: 30px;}
 }

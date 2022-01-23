@@ -3,6 +3,7 @@ import SubmitButton from "../../components/submit-button";
 import {fetchWrapper} from "../../helpers/fetch-wrapper";
 import {fail} from "../../components/alert";
 import {useHistory} from "react-router-dom";
+import "./index.css";
 
 function AnnouncementInput(props) {
 
@@ -65,7 +66,7 @@ function AnnouncementInput(props) {
           type="text"
           value={value}
           onChange={e => changeCertificate(index, e.target.value)} />
-        <button onClick={() => deleteCertificate(index)}>-</button>
+        <button onClick={() => deleteCertificate(index)} className="btn btn-primary mi-btn">-</button>
       </div>
     ));
   };
@@ -93,7 +94,7 @@ function AnnouncementInput(props) {
           type="text"
           value={value}
           onChange={e => changeDepartment(index, e.target.value)} />
-        <button onClick={() => deleteDepartment(index)}>-</button>
+        <button onClick={() => deleteDepartment(index)} className="btn btn-primary mi-btn">-</button>
       </div>
     ));
   };
@@ -121,7 +122,7 @@ function AnnouncementInput(props) {
           type="text"
           value={value}
           onChange={e => changeSubject(index, e.target.value)} />
-        <button onClick={() => deleteSubject(index)}>-</button>
+        <button onClick={() => deleteSubject(index)} className="btn btn-primary mi-btn">-</button>
       </div>
     ));
   };
@@ -160,7 +161,7 @@ function AnnouncementInput(props) {
           name="perfectScore"
           value={value.perfectScore}
           onChange={e => changeLanguageScore(index, e.target.name, e.target.value)} />
-        <button onClick={() => deleteLanguageScore(index)}>-</button>
+        <button onClick={() => deleteLanguageScore(index)} className="btn btn-primary mi-btn">-</button>
       </div>
     ));
   };
@@ -188,7 +189,7 @@ function AnnouncementInput(props) {
           type="text"
           value={value}
           onChange={e => changeNote(index, e.target.value)} />
-        <button onClick={() => deleteNote(index)}>-</button>
+        <button onClick={() => deleteNote(index)} className="btn btn-primary mi-btn">-</button>
       </div>
     ));
   };
@@ -210,68 +211,84 @@ function AnnouncementInput(props) {
   };
 
   return (
-    <div class="con_wrap">
-      <div>
-        <label>직무명</label>
-        <input type="text" value={positionName} onChange={e => setPositionName(e.target.value)} />
-      </div>
-      <div>
-        <label>채용구분</label>
-        <input type="text" value={recruitType} onChange={e => setRecruitType(e.target.value)} />
-      </div>
-      <div>
-        <label>채용수준</label>
-        <input type="text" value={recruitLevel} onChange={e => setRecruitLevel(e.target.value)} />
-      </div>
-      <div>
-        <label>근무형태</label>
-        <input type="text" value={workingType} onChange={e => setWorkingType(e.target.value)} />
-      </div>
-      <div>
-        <label>지역명</label>
-        <input type="text" value={districtName} onChange={e => setDistrictName(e.target.value)} />
-      </div>
-      <div>
-        <label>인원수</label>
-        <input type="text" value={headCount} onChange={e => setHeadCount(e.target.value)} />
-      </div>
-      <div>
-        <label>직급</label>
-        <input type="text" value={rank} onChange={e => setRank(e.target.value)} />
-      </div>
-      <div>
-        <label>자격증</label>
-        {renderCertificates()}
-        <button onClick={addCertificate}>+</button>
-      </div>
-      <div>
-        <label>학과</label>
-        {renderDepartments()}
-        <button onClick={addDepartment}>+</button>
-      </div>
-      <div>
-        <label>과목</label>
-        {renderSubjects()}
-        <button onClick={addSubject}>+</button>
-      </div>
-      <div>
-        <label>어학점수</label>
-        {renderLanguageScores()}
-        <button onClick={addLanguageScore}>+</button>
-      </div>
-      <div>
-        <label>기타사항</label>
-        {renderNotes()}
-        <button onClick={addNote}>+</button>
-      </div>
-      <div>
-        <SubmitButton
-          className="btn btn-primary"
-          onClick={post}
-          isLoading={isFetching}
-          useSpinner
-          content="공고 입력" />
-      </div>
+    <div className="con_wrap AnnounceEdit">
+      {/*inner*/}
+      <div className="container conbox announcement-input-wrap">
+        <ul className="row">
+          <li className="col-xs-12 col-sm-6">
+            <h5>직무명</h5>
+            <input type="text" value={positionName} onChange={e => setPositionName(e.target.value)} />
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <h5>채용구분</h5>
+            <input type="text" value={recruitType} onChange={e => setRecruitType(e.target.value)} />
+          </li>
+        </ul>
+        <ul className="row">
+          <li className="col-xs-12 col-sm-6">
+            <h5>채용수준</h5>
+            <input type="text" value={recruitLevel} onChange={e => setRecruitLevel(e.target.value)} />
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <h5>근무형태</h5>
+            <input type="text" value={workingType} onChange={e => setWorkingType(e.target.value)} />
+          </li>
+        </ul>
+        <ul className="row">
+          <li className="col-xs-12 col-sm-6">
+            <h5>지역명</h5>
+            <input type="text" value={districtName} onChange={e => setDistrictName(e.target.value)} />
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <h5>인원수</h5>
+            <input type="text" value={headCount} onChange={e => setHeadCount(e.target.value)} />
+          </li>
+        </ul>
+        <ul className="row">
+          <li className="col-xs-12 col-sm-6">
+            <h5>직급</h5>
+            <input type="text" value={rank} onChange={e => setRank(e.target.value)} />
+          </li>
+        </ul>
+        
+        <ul className="row plus-btn-wrap">
+          <li className="col-xs-12 col-sm-6">
+            <h5>자격증</h5>
+            {renderCertificates()}
+            <button onClick={addCertificate} className="btn btn-primary">+</button>
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <h5>학과</h5>
+            {renderDepartments()}
+            <button onClick={addDepartment} className="btn btn-primary">+</button>
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <h5>과목</h5>
+            {renderSubjects()}
+            <button onClick={addSubject} className="btn btn-primary">+</button>
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <h5>어학점수</h5>
+            {renderLanguageScores()}
+            <button onClick={addLanguageScore} className="btn btn-primary">+</button>
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <h5>기타사항</h5>
+            {renderNotes()}
+            <button onClick={addNote} className="btn btn-primary">+</button>
+          </li>
+        </ul>
+
+        <div className="col-xs-12 text-center">
+          <SubmitButton
+            className="btn btn-primary min-100"
+            onClick={post}
+            isLoading={isFetching}
+            useSpinner
+            content="공고 입력"/>
+        </div>
+      </div> 
+      {/*inner*/}
     </div>
   );
 }

@@ -1,0 +1,14 @@
+@charset "utf-8";
+
+.colgroupW {display: block;}
+.conbox {max-width: 690px!important; word-break: keep-all;}
+.sequence .conbox{margin-bottom: 90px;}
+.sequence .btn{padding:14px 18px;}
+.sequence table { margin-top: 20px; margin-bottom: 60px;}
+.sequence p {margin: 0 auto;}
+.sequence tr {border-bottom: 0.5px solid rgba(0, 27, 55, 0.1);}
+.sequence tr:last-child {border-bottom: 0;}
+.sequence td, .sequence th { color:rgb(107, 118, 132);padding: 24px 0;}
+
+.sequence td {font-weight:bold; word-break: keep-all;}
+.sequence th {padding-right: 20px; font-weight: 400;}

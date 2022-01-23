@@ -1,7 +1,9 @@
 @charset "utf-8";
 
-/*default*/
-body,h1,h2,h3,h4,h5,h6,p,input,label,button,a{ font-family: 'TossProductSans','NotoSans'; margin:0;}
-.row{margin: 0 auto;}
-.blue01{color:#3182f6;}
-/*default-end*/
+.announcement-input-wrap .plus-btn-wrap li input{width: calc(100% - 50px); margin-right: 11px;margin-bottom: 10px;}
+.announcement-input-wrap .plus-btn-wrap li div .mi-btn{background:#fff; border: 1px solid #eee; color:#0d6efd; width:39px;padding:6px 8px 10px 8px; line-height: normal;}
+.announcement-input-wrap .plus-btn-wrap li div .mi-btn:focus{background: #fff !important;}
+.announcement-input-wrap .plus-btn-wrap li div{margin: 0 auto;}
+.announcement-input-wrap .plus-btn-wrap li .btn-primary{ width:100%; font-weight: 900;}
+.announcement-input-wrap .min-100 {min-width: 110px;}
+.con_wrap .plus-btn-wrap button {padding:10px;}

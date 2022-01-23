@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+.announcement-submit-complete {text-align: center;}
+
+.announcement-submit-complete .button-wrap {margin:0 auto; max-width: 450px;}
+
+.announcement-submit-complete .btn{
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: 15px;
+    line-height: 20px;
+    white-space: nowrap;
+    color: #fff;
+    background-color: #3182f6;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .2s ease,color .1s ease;
+    min-width: 205px;
+    font-family: 'Spoqa Han Sans Neo','AppleSDGothicNeo','TossProductSans','NotoSans';
+}
+
+.announcement-submit-complete .btn:hover{color: #fff; background-color: #1b64da;}
+.announcement-submit-complete .btn:focus{box-shadow:none;}

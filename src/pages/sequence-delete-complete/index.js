@@ -11,7 +11,7 @@ function SequenceDeleteComplete(props) {
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-auto">
-          <p>{message}</p>
+          <h1>{message}</h1>
         </div>
       </div>
       <div className="row justify-content-center">

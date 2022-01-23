@@ -1,3 +1,4 @@
+import "./index.css";
 import { saveAs } from 'file-saver';
 import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -5,6 +6,7 @@ import { fetchWrapper } from "../../helpers/fetch-wrapper";
 import { fail, success } from "../../components/alert";
 import Spinner from "../../components/spinner";
 import SubmitButton from "../../components/submit-button";
+
 
 function SequenceEdit(props) {
 
@@ -92,64 +94,84 @@ function SequenceEdit(props) {
   };
 
   const renderForm = () => (
-    <div>
-      <div>
-        <label>차수ID</label>
-        <input type="text" value={data.id} disabled />
-      </div>
-      <div>
-        <label>회사명</label>
-        <input type="text" value={companyName} onChange={e => setCompanyName(e.target.value)} />
-      </div>
-      <div>
-        <label>차수명</label>
-        <input type="text" value={sequence} onChange={e => setSequence(e.target.value)} />
-      </div>
-      <div>
-        <label>접수시작일</label>
-        <input type="datetime-local" value={receiptStartTimestamp} onChange={e => setReceiptStartTimestamp(e.target.value)} />
-      </div>
-      <div>
-        <label>접수종료일</label>
-        <input type="datetime-local" value={receiptEndTimestamp} onChange={e => setReceiptEndTimestamp(e.target.value)} />
-      </div>
-      <div>
-        <label>링크</label>
-        <input type="text" value={link} onChange={e => setLink(e.target.value)} />
-      </div>
-      <div>
-        <label>첨부파일</label>
-        <ul>
-          {uploadedFiles.map(renderFile)}
+    <div className="con_wrap sequence-edit-wrap">
+      {/*inner*/}
+      <div className="container conbox">
+
+        <ul className="row">       
+          <li className="col-xs-12 col-sm-6">
+            <h5 class="col-12">회사명</h5>
+            <input type="text" value={companyName} onChange={e => setCompanyName(e.target.value)} />
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <h5 class="col-12">링크</h5>
+            <input type="text" value={link} onChange={e => setLink(e.target.value)} />
+          </li>
         </ul>
-        <input type="file" onChange={e => setFiles(e.target.files)} multiple />
-      </div>
-      <div>
-        <SubmitButton
-          className="btn btn-primary"
-          onClick={put}
-          isLoading={isFetching}
-          content="차수 수정" />
-        <SubmitButton
-          className="btn btn-danger"
-          onClick={deleteSequence}
-          isLoading={isFetching}
-          content="삭제" />
+
+        <ul className="row">
+          <li className="col-xs-12 col-sm-6">
+            <h5 class="col-12">차수명</h5>
+            <input type="text" value={sequence} onChange={e => setSequence(e.target.value)} />
+          </li>
+         <li className="col-xs-12 col-sm-6">
+            <h5 class="col-12">차수ID</h5>
+            <input type="text" value={data.id} disabled />
+          </li>
+        </ul>
+
+        <ul className="row">
+          <li className="col-xs-12 col-sm-6">
+            <h5 class="col-12">접수시작일</h5>
+            <input type="datetime-local" value={receiptStartTimestamp} onChange={e => setReceiptStartTimestamp(e.target.value)} />
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <h5 class="col-12">접수종료일</h5>
+            <input type="datetime-local" value={receiptEndTimestamp} onChange={e => setReceiptEndTimestamp(e.target.value)} />
+          </li>
+        </ul>
+
+        <ul class="row">
+          <li className="col-xs-12 margin-bz">
+            <h5>첨부파일</h5>
+            {uploadedFiles.map(renderFile)}
+          </li>
+          <li class="col-xs-12">
+            <input type="file" onChange={e => setFiles(e.target.files)} multiple />
+          </li>
+        </ul>  
+
+        <ul className="row btn-wrap">
+          <li className="col-6" style={{textAlign: 'right'}}>
+            <SubmitButton
+              className="btn btn-primary"
+              onClick={put}
+              isLoading={isFetching}
+              content="차수 수정" />
+          </li> 
+          <li className="col-6">
+          <SubmitButton
+            className="btn btn-danger"
+            onClick={deleteSequence}
+            isLoading={isFetching}
+            content="삭제" />
+          </li>
+        </ul>
       </div>
     </div>
   );
 
   const renderFile = file => {
     return (
-      <li key={file.id}>
+      <li key={file.id} className="mar-top">
         <SubmitButton
-          className="btn btn-link"
+          className="btn btn-link btn-primary down-btn"
           onClick={() => download(file.id, file.fileName)}
           content={file.id}
           isLoading={isFetching} />
-        <span>: {JSON.stringify(file)} </span>
+          <span className="ren-span">: {JSON.stringify(file)} </span>
         <SubmitButton
-          className="btn btn-danger"
+          className="btn btn-danger ren-file"
           onClick={() => deleteAttachment(data.id, file.id)}
           content="삭제"
           isLoading={isFetching} />

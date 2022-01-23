@@ -57,43 +57,46 @@ function Home() {
       <div className="container conbox">
         <ul className="row">
           <li className="col-xs-12 col-sm-6">
-            <h1 class="col-12">회사명</h1>
+            <h5 class="col-12">회사명</h5>
             <input type="text" class="col-12" onChange={e => setCompanyName(e.target.value)} />
           </li>
           <li className="col-xs-12 col-sm-6">
-            <h1 class="col-12">차수명</h1>
+            <h5 class="col-12">차수명</h5>
             <input type="text" class="col-12" onChange={e => setSequence(e.target.value)} />
           </li>
         </ul>
 
         <ul className="row">
           <li className="col-xs-12 col-sm-6">
-            <h1 class="col-12">접수시작일</h1>
+            <h5 class="col-12">접수시작일</h5>
             <input type="datetime-local" class="col-12" onChange={e => setReceiptStartTimestamp(e.target.value)} />
           </li>
           <li className="col-xs-12 col-sm-6">
-            <h1 class="col-12">접수종료일</h1>
+            <h5 class="col-12">접수종료일</h5>
             <input type="datetime-local" class="col-12" onChange={e => setReceiptEndTimestamp(e.target.value)} />
           </li>  
         </ul>
 
         <ul className="row flexbox filebox">
-          <li className="col-xs-12 col-sm-6">
-            <h1 class="col-12">링크</h1>
+          <li className="col-xs-12">
+            <h5 class="col-12">링크</h5>
             <input type="text" class="col-12" onChange={e => setLink(e.target.value)} />
-          </li>
-          <li className="col-xs-12 col-sm-6">
-            <h1 class="col-12">첨부파일</h1>
-            <label htmlFor="file">업로드</label>
-            <input type="file" id="file" class="col-12" onChange={e => setFiles(e.target.files)} multiple />
           </li>
         </ul>
 
-        <div class="att_box">
-          {files.length === 0 ? "none" : <p>{files[0].name + " 외 " + (files.length-1) + "개의 파일"}</p>}
-        </div>
+        <ul className="row flexbox filebox">
+          <li className="col-xs-12">
+            <h5 className="col-12">첨부파일</h5>
+            <label htmlFor="file" className="col-xs-12 buttonFile">+</label>
+            <input type="file" id="file" class="col-xs-12" onChange={e => setFiles(e.target.files)} multiple />
 
-        <div className="con04 flexbox">
+            <div class="att_box col-9">
+              {files.length === 0 ? "none" : <p>{files[0].name + " 외 " + (files.length-1) + "개의 파일"}</p>}
+            </div>
+          </li>
+        
+        </ul>
+        <div className="text-center">
           <SubmitButton onClick={post} isLoading={isFetching} useSpinner>차수 입력</SubmitButton>
         </div>
 

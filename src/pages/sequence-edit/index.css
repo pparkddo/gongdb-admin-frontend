@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+.sequence-edit-wrap .margin-bz {margin-bottom: 0 !important;}
+.sequence-edit-wrap .mar-top {margin-bottom: 20px;}
+
+.sequence-edit-wrap .ren-span {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: calc(100% - 172px);
+    vertical-align: middle;
+    padding: 0 20px 0 10px;
+}
+.sequence-edit-wrap .btn-link{color: #fff; text-decoration: none; width: 100px;}
+.sequence-edit-wrap .btn-link:hover{color: #fff; text-decoration: none;}

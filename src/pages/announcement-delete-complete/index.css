@@ -1,0 +1,25 @@
+@charset "utf-8";
+
+
+.announcement-delete-complete {text-align: center;}
+
+.announcement-delete-complete .button-wrap {margin:0 auto; max-width: 450px;}
+
+.announcement-delete-complete .btn{ padding: 14px 18px; border-radius: 8px; font-size: 15px; font-weight: 600;
+   line-height: 20px; white-space: nowrap; color: #fff; background-color: #3182f6; cursor: pointer;
+    text-decoration: none; transition: background .2s ease,color .1s ease; min-width: 205px;
+}
+
+.announcement-delete-complete .btn:hover{color: #fff; background-color: #1b64da;}
+.announcement-delete-complete .btn:focus{box-shadow:none;}
+
+.announcement-delete-complete .com-img img{width: 100%; text-align: center; padding-bottom:60px; max-width: 200px;}
+
+
+ @media screen and (max-width: 991px){
+    .sequence-submit-complete .comp-mes{font-weight:700; font-size:20px;}
+    .sequence-submit-complete .btn{font-size: 14px;}
+ }
+ @media screen and (max-width: 575.20px){
+    .sequence-submit-complete .button-wrap div:last-child{margin-top:10px;}
+ }

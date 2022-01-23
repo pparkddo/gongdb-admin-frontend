@@ -1,16 +1,14 @@
 @charset "utf-8";
 
-/*default*/
-body,h1,h2,h3,h4,h5,h6,p,input,label,button,a{ font-family: 'TossProductSans','NotoSans'; margin:0;}
-.row{margin: 0 auto;}
-.blue01{color:#3182f6;}
-/*default-end*/
 
-.con_wrap .btn{
+.sequence-submit-complete {text-align: center;}
+
+.sequence-submit-complete .button-wrap {margin:0 auto; max-width: 450px;}
+
+.sequence-submit-complete .btn{
     padding: 14px 18px;
     border-radius: 8px;
     font-size: 15px;
-    font-weight: 600;
     line-height: 20px;
     white-space: nowrap;
     color: #fff;
@@ -18,6 +16,16 @@ body,h1,h2,h3,h4,h5,h6,p,input,label,button,a{ font-family: 'TossProductSans','N
     cursor: pointer;
     text-decoration: none;
     transition: background .2s ease,color .1s ease;
+    min-width: 205px;
+}
+
+.sequence-submit-complete .btn:hover{color: #fff; background-color: #1b64da;}
+.sequence-submit-complete .btn:focus{box-shadow:none;}
+
+ @media screen and (max-width: 991px){
+    .sequence-submit-complete .comp-mes{font-weight:700; font-size:20px;}
+    .sequence-submit-complete .btn{font-size: 14px;}
  }
- .con_wrap .btn:hover{color: #fff; background-color: #1b64da;}
- .con_wrap .btn:focus{box-shadow: none;}
+ @media screen and (max-width: 575.20px){
+    .sequence-submit-complete .button-wrap div:last-child{margin-top:10px;}
+ }
