@@ -21,7 +21,8 @@ function Sequence() {
         <div className="container conbox">
           {/*inner*/}
           <div className="row table-wrap" style={{padding:'0 15px'}}>
-            <h3>차수리스트</h3>
+            <h3>{sequence.company.name} {sequence.sequence}</h3>
+            <a href={`/sequence/${sequence.id}`}>edit</a>
             <table className="col-xs-12">
               <colgroup className="colgroupW">
                 <col style={{ width:'10%'}} />
@@ -34,14 +35,6 @@ function Sequence() {
               <tr>
                 <th><p>회사아이디</p></th>
                 <td><p>{sequence.company.id}</p></td>
-              </tr>
-              <tr>
-                <th><p>회사명</p></th>
-                <td><p>{sequence.company.name}</p></td>
-              </tr>
-              <tr>
-                <th><p>차수명</p></th>
-                <td><p>{sequence.sequence}</p></td>
               </tr>
               <tr>
                 <th><p>접수시작일</p></th>
@@ -65,8 +58,10 @@ function Sequence() {
               </tr>
             </table>
           </div>
-          <div className="text-center">
-            <a className="btn btn-primary" href={`/sequence/${sequence.id}/announcement`}>공고입력</a>
+          <div className="text-right">
+            <a className="btn btn-primary mx-1" href={`/sequence/${sequence.id}/announcement`}>공고입력</a>
+            <a className="btn btn-primary mx-1" href={`/sequence/${sequence.id}/examination-schedule`}>전형일정입력</a>
+            <a className="btn btn-primary mx-1" href={`/sequence/${sequence.id}/cover-letter`}>자소서입력</a>
           </div>
           {/*inner*/}
         </div>
