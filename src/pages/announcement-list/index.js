@@ -20,7 +20,7 @@ function AnnouncementList() {
         <div className="container conbox">
           {/*inner*/}
           <div className="table-wrap">
-            <h3>차수리스트</h3>
+            <h3>공고리스트</h3>
             <table style={{ width:'100%'}}>
               <colgroup>
                 <col style={{ width:'30%'}} />
@@ -65,14 +65,6 @@ function AnnouncementList() {
               <tr>
                 <th><p>링크</p></th>
                 <td><p>{announcement.sequence.link}</p></td>
-              </tr>
-              <tr>
-                <th><p>파일id</p></th>
-                <td><p>{announcement.sequence.files[0].id}</p></td>
-              </tr>
-              <tr>
-                <th><p>파일이름</p></th>
-                <td><p>{announcement.sequence.files[0].fileName}</p></td>
               </tr>
               <tr>
                 <th><p>작성일</p></th>
