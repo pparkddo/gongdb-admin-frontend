@@ -12,6 +12,7 @@ import SequenceSubmitComplete from '../pages/sequence-submit-complete';
 import AnnouncementSubmitComplete from "../pages/announcement-submit-complete";
 import AnnouncementDeleteComplete from "../pages/announcement-delete-complete";
 import ExaminationSchedule from "../pages/examination-schedule";
+import CoverLetter from "../pages/cover-letter";
 import "./index.css";
 
 const Root = () => (
@@ -26,6 +27,7 @@ const Root = () => (
         <Route path="/sequence/:id" component={SequenceEdit} exact />
         <Route path="/sequence/:id/announcement" component={AnnouncementInput} exact />
         <Route path="/sequence/:id/examination-schedule" component={ExaminationSchedule} exact />
+        <Route path="/sequence/:id/cover-letter" component={CoverLetter} exact />
         <Route path="/announcement/" component={AnnouncementList} exact />
         <Route path="/announcement/submit-complete" component={AnnouncementSubmitComplete} exact />
         <Route path="/announcement/delete-complete" component={AnnouncementDeleteComplete} exact />

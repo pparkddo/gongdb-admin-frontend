@@ -49,7 +49,7 @@ function Index(props) {
       )
       .then(() => setLoading(false))
       .catch(handleError);
-  }, []);
+  }, [id]);
 
   const post = () => {
     submit(fetchWrapper.post);
@@ -81,7 +81,7 @@ function Index(props) {
     setFetching(false);
   };
 
-  const renderExaminationScheduleItem = (value, index, array) => {
+  const renderExaminationScheduleItem = (value, index) => {
     return (
       <li className="my-3" key={index}>
         <label htmlFor="examinationSequenceNo">전형순서</label>
@@ -143,11 +143,7 @@ function Index(props) {
           value={value.note}
           onChange={e => changeExaminationScheduleItem(index, e.target.name, e.target.value)}
         />
-        <button
-          onClick={() => deleteExaminationScheduleItem(index)}
-        >
-          -
-        </button>
+        <button onClick={() => deleteExaminationScheduleItem(index)}>-</button>
       </li>
     );
   };
