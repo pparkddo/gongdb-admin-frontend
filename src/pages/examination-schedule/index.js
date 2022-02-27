@@ -4,6 +4,7 @@ import {fetchWrapper} from "../../helpers/fetch-wrapper";
 import {fail} from "../../components/alert";
 import {useHistory} from "react-router-dom";
 import Spinner from "../../components/spinner";
+import css from "styled-jsx/css";
 
 const requestHeader = {
   headers: {
@@ -144,6 +145,7 @@ function Index(props) {
           onChange={e => changeExaminationScheduleItem(index, e.target.name, e.target.value)}
         />
         <button onClick={() => deleteExaminationScheduleItem(index)}>-</button>
+        <style jsx>{labelStyle}</style>
       </li>
     );
   };
@@ -181,23 +183,44 @@ function Index(props) {
   }
 
   return (
-    <div>
+    <div className="con_wrap">
       <div>
         <ul>
           {examinationSchedule.map(renderExaminationScheduleItem)}
         </ul>
-        <button onClick={addExaminationScheduleItem}>+</button>
+        <button className="background-test" onClick={addExaminationScheduleItem}>+</button>
       </div>
       <div>
         <SubmitButton
+          className="styled-button"
           onClick={hasDataBefore ? put : post}
           isLoading={isFetching}
           content={hasDataBefore ? "전형정보 수정" : "전형정보 입력"}
           useSpinner
         />
       </div>
+      <style jsx>{style}</style>
+      <style jsx global>{globalStyle}</style>
     </div>
   );
 }
+
+const style = css`
+  .background-test {
+    background-color: blue;
+  }
+`;
+
+const labelStyle = css`
+  label {
+    font-size: 12px;
+  }
+`;
+
+const globalStyle = css`
+  .styled-button {
+    background-color: blue;
+  }  
+`;
 
 export default Index;

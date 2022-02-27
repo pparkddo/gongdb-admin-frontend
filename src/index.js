@@ -8,6 +8,12 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
+// see: https://stackoverflow.com/questions/57261540/warning-received-true-for-a-non-boolean-attribute-jsx-zeit-styled-jsx/66285652#66285652
+const _JSXStyle = require('styled-jsx/style').default;
+if (typeof global !== 'undefined') {
+  Object.assign(global, { _JSXStyle });
+}
+
 toast.configure({
   hideProgressBar: true,
   theme: "colored",
