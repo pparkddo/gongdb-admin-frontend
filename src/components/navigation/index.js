@@ -4,7 +4,7 @@ function Navigation() {
   return (
     <div className="nav_bar cf">
       <ul className="nav_menu inner">
-        <li>
+        <li className="nav_item">
           <a href="/">메인</a>
         </li>
         <li className="nav_item">

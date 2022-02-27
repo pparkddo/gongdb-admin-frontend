@@ -12,3 +12,6 @@
 
 .sequence td {font-weight:bold; word-break: keep-all;}
 .sequence th {padding-right: 20px; font-weight: 400;}
+
+.sequence .editImg { width: 20px; display: inline-block;}
+.sequence .table-wrap span a {vertical-align: middle;}

@@ -84,6 +84,7 @@ function Index(props) {
 
   const renderExaminationScheduleItem = (value, index) => {
     return (
+<<<<<<< Updated upstream
       <li className="my-3" key={index}>
         <label htmlFor="examinationSequenceNo">전형순서</label>
         <input name="examinationSequenceNo" value={ index+1 } disabled />
@@ -147,6 +148,84 @@ function Index(props) {
         <button onClick={() => deleteExaminationScheduleItem(index)}>-</button>
         <style jsx>{labelStyle}</style>
       </li>
+=======
+      <ul className="row">
+        <li className="col-xs-12 col-sm-6 my-3" key={index}>
+          <label htmlFor="examinationSequenceNo">전형순서</label>
+          <input name="examinationSequenceNo" value={ index+1 } disabled />
+        </li>
+        <li className="col-xs-12 col-sm-6">
+          <label htmlFor="examinationType">전형유형</label>
+          <input
+            name="examinationType"
+            value={value.examinationType}
+            onChange={e => changeExaminationScheduleItem(index, e.target.name, e.target.value)}
+          />
+        </li>
+        <li className="col-xs-12 col-sm-6">
+          <label htmlFor="estimatedExaminationStartDate">전형시작 추정일</label>
+          <input
+            name="estimatedExaminationStartDate"
+            value={value.estimatedExaminationStartDate}
+            onChange={e => changeExaminationScheduleItem(index, e.target.name, e.target.value)}
+          />
+        </li>
+        <li className="col-xs-12 col-sm-6">
+          <label htmlFor="estimatedExaminationEndDate">전형종료 추정일</label>
+          <input
+            name="estimatedExaminationEndDate"
+            value={value.estimatedExaminationEndDate}
+            onChange={e => changeExaminationScheduleItem(index, e.target.name, e.target.value)}
+          />
+        </li>
+        <li className="col-xs-12 col-sm-6">
+          <label htmlFor="estimatedExaminationResultNoticeDate">전형결과공지 추정일</label>
+          <input
+            name="estimatedExaminationResultNoticeDate"
+            value={value.estimatedExaminationResultNoticeDate}
+            onChange={e => changeExaminationScheduleItem(index, e.target.name, e.target.value)}
+          />
+          <label htmlFor="examinationStartDate">전형시작일</label>
+          <input
+            name="examinationStartDate"
+            type="datetime-local"
+            value={value.examinationStartDate}
+            onChange={e => changeExaminationScheduleItem(index, e.target.name, e.target.value)}
+          />
+        </li>
+        <li className="col-xs-12 col-sm-6">
+          <label htmlFor="examinationEndDate">전형종료일</label>
+          <input
+            name="examinationEndDate"
+            type="datetime-local"
+            value={value.examinationEndDate}
+            onChange={e => changeExaminationScheduleItem(index, e.target.name, e.target.value)}
+          />
+          <label htmlFor="examinationResultNoticeDate">전형결과공지일</label>
+          <input
+            name="examinationResultNoticeDate"
+            type="datetime-local"
+            value={value.examinationResultNoticeDate}
+            onChange={e => changeExaminationScheduleItem(index, e.target.name, e.target.value)}
+          />
+        </li>
+        <li className="col-xs-12 col-sm-6">
+          <label htmlFor="selectingRete">선발배수</label>
+          <input
+            name="selectingRete"
+            value={value.selectingRate}
+            onChange={e => changeExaminationScheduleItem(index, e.target.name, e.target.value)}
+          />
+          <label htmlFor="note">기타사항</label>
+          <input
+            name="note"
+            value={value.note}
+            onChange={e => changeExaminationScheduleItem(index, e.target.name, e.target.value)}
+          />
+          <button onClick={() => deleteExaminationScheduleItem(index)}>-</button>
+        </li>
+      </ul>
+>>>>>>> Stashed changes
     );
   };
 

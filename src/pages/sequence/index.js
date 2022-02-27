@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Spinner from "../../components/spinner";
-import completeImage from "../../images/complete.png";
+import completeImage from "../../images/pencil.png";
 import "./index.css";
 
 function Sequence() {
@@ -21,8 +21,12 @@ function Sequence() {
         <div className="container conbox">
           {/*inner*/}
           <div className="row table-wrap" style={{padding:'0 15px'}}>
-            <h3>{sequence.company.name} {sequence.sequence}</h3>
-            <a href={`/sequence/${sequence.id}`}>edit</a>
+            <h3 style={{ padding:'0', width:'auto'}}>{sequence.company.name} {sequence.sequence}</h3>
+            <span style={{width:'auto'}}>
+              <a href={`/sequence/${sequence.id}`}>
+                < img className="editImg" src={completeImage} />
+              </a>
+            </span>
             <table className="col-xs-12">
               <colgroup className="colgroupW">
                 <col style={{ width:'10%'}} />
