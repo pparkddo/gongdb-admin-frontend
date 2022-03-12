@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {SWRConfig} from "swr";
 import './index.css';
 import Root from './routes/index'
 import reportWebVitals from './reportWebVitals';
@@ -19,9 +20,18 @@ toast.configure({
   theme: "colored",
 });
 
+const fetcher = (...args) => fetch(...args)
+.then(res => res.json());
+
 ReactDOM.render(
   <React.StrictMode>
-    <Root />
+    <SWRConfig
+        value={{
+          fetcher: fetcher,
+        }}
+    >
+      <Root />
+    </SWRConfig>
   </React.StrictMode>,
   document.getElementById('root')
 );
