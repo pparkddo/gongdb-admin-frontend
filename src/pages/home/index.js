@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { fail } from "../../components/alert";
-import SubmitButton from "../../components/submit-button";
-import { fetchWrapper } from "../../helpers/fetch-wrapper";
-import "./index.css";
-import useWorkingType from "../../services/working-type";
+import {useState} from "react";
+import {useHistory} from "react-router-dom";
+import {fail} from "components/alert";
+import SubmitButton from "components/submit-button";
+import {fetchWrapper} from "helpers/fetch-wrapper";
 import Select from "react-select";
-import useRecruitLevel from "../../services/recruit-level";
+import useCodes from "services/codes";
+import Spinner from "components/spinner";
+import "./index.css";
 
 /*부트스트랩*/
 
@@ -20,10 +20,7 @@ const convertToOption = (values) => {
 function Home() {
 
   const history = useHistory();
-  const {workingTypes} = useWorkingType();
-  const {recruitLevels} = useRecruitLevel();
-  const workingTypeOptions = convertToOption(workingTypes);
-  const recruitLevelOptions = convertToOption(recruitLevels);
+  const {workingTypes, recruitLevels, isError, isLoading} = useCodes();
 
   const [companyName, setCompanyName] = useState("");
   const [sequence, setSequence] = useState("");
@@ -81,6 +78,18 @@ function Home() {
            </div>;
   };
 
+  if (isError) {
+    return (
+        <div>
+          <p>Error on fetching codes!</p>
+        </div>
+    );
+  }
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <div className="con_wrap">
       {/*inner*/}
@@ -112,7 +121,7 @@ function Home() {
             <h5 className="col-12">근무형태</h5>
             <Select
                 isSearchable={false}
-                options={workingTypeOptions}
+                options={convertToOption(workingTypes)}
                 onChange={(option) => setWorkingType(option.value)}
             />
           </li>
@@ -120,7 +129,7 @@ function Home() {
             <h5 className="col-12">채용수준</h5>
             <Select
                 isSearchable={false}
-                options={recruitLevelOptions}
+                options={convertToOption(recruitLevels)}
                 onChange={(option) => setRecruitLevel(option.value)}
             />
           </li>

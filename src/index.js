@@ -2,12 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {SWRConfig} from "swr";
 import './index.css';
-import Root from './routes/index'
-import reportWebVitals from './reportWebVitals';
+import Root from 'routes/index'
+import reportWebVitals from 'reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import {fetchWrapper} from "helpers/fetch-wrapper";
 
 // see: https://stackoverflow.com/questions/57261540/warning-received-true-for-a-non-boolean-attribute-jsx-zeit-styled-jsx/66285652#66285652
 const _JSXStyle = require('styled-jsx/style').default;
@@ -20,8 +21,7 @@ toast.configure({
   theme: "colored",
 });
 
-const fetcher = (...args) => fetch(...args)
-.then(res => res.json());
+const fetcher = (...args) => fetchWrapper.get(...args).then(res => res.json());
 
 ReactDOM.render(
   <React.StrictMode>
