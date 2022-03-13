@@ -39,10 +39,6 @@ function Sequence() {
                   <td><p>{sequence.id}</p></td>
                 </tr>
                 <tr>
-                  <th><p>회사아이디</p></th>
-                  <td><p>{sequence.company.id}</p></td>
-                </tr>
-                <tr>
                   <th><p>근무유형</p></th>
                   <td><p>{sequence.workingType}</p></td>
                 </tr>

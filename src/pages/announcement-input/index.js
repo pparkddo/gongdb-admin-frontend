@@ -11,8 +11,6 @@ function AnnouncementInput(props) {
   const history = useHistory();
   const [positionName, setPositionName] = useState("");
   const [recruitType, setRecruitType] = useState("");
-  const [recruitLevel, setRecruitLevel] = useState("");
-  const [workingType, setWorkingType] = useState("");
   const [districtName, setDistrictName] = useState("");
   const [headCount, setHeadCount] = useState("");
   const [rank, setRank] = useState("");
@@ -27,8 +25,6 @@ function AnnouncementInput(props) {
     const content = {
       positionName: positionName,
       recruitType: recruitType,
-      recruitLevel: recruitLevel,
-      workingType: workingType,
       districtName: districtName,
       headCount: headCount,
       rank: rank,
@@ -222,16 +218,6 @@ function AnnouncementInput(props) {
           <li className="col-xs-12 col-sm-6">
             <h5>채용구분</h5>
             <input type="text" value={recruitType} onChange={e => setRecruitType(e.target.value)} />
-          </li>
-        </ul>
-        <ul className="row">
-          <li className="col-xs-12 col-sm-6">
-            <h5>채용수준</h5>
-            <input type="text" value={recruitLevel} onChange={e => setRecruitLevel(e.target.value)} />
-          </li>
-          <li className="col-xs-12 col-sm-6">
-            <h5>근무형태</h5>
-            <input type="text" value={workingType} onChange={e => setWorkingType(e.target.value)} />
           </li>
         </ul>
         <ul className="row">
