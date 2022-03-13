@@ -160,7 +160,7 @@ function AnnouncementList() {
     return (
       <div className="text-center">
         <div className="com-img text-center">
-          <img src={completeImage} />
+          <img src={completeImage} alt="complete" />
           <h3>입력된 공고가 없어요</h3>
         </div>
       </div>

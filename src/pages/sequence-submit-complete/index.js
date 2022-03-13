@@ -15,7 +15,7 @@ function SequenceSubmitComplete(props) {
       {/*inner*/}
       <div className="container sequence-submit-complete">
         <div className="com-img">
-          <img src={completeImage}/>
+          <img src={completeImage} alt="complete" />
         </div>
         <div>
           <h3 className="compl-mes">{message}</h3>

@@ -67,15 +67,18 @@ function Home() {
   };
 
   const renderFiles = (files) => {
-    return files.length === 0
-        ? null
-        : Array.from(files).map(file => renderFile(file))
+    if (files.length === 0) {
+      return null;
+    }
+    return Array.from(files).map(renderFile);
   };
 
-  const renderFile = (file) => {
-    return <div className="att_box col-9">
-             <p>{file.name}</p>
-           </div>;
+  const renderFile = (file, index) => {
+    return (
+        <div className="att_box col-9" key={index}>
+           <p>{file.name}</p>
+        </div>
+    );
   };
 
   if (isError) {
