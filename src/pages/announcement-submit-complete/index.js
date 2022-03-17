@@ -25,7 +25,7 @@ function AnnouncementSubmitComplete(props) {
         <div className="row button-wrap">
           <div className="col-xs-12 col-sm-6">
             <button className="btn" onClick={moveToAnnouncementListPage}>
-              차수 목록 바로가기
+              공고 목록 바로가기
             </button>
           </div>
           <div className="col-xs-12 col-sm-6">
