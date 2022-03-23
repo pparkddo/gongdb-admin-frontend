@@ -15,7 +15,7 @@ function AnnouncementDeleteComplete(props) {
       {/*inner*/}
       <div className="container announcement-delete-complete">
         <div className="com-img">
-          <img src={completeImage}/>
+          <img src={completeImage} alt="complete" />
         </div>
         <div>
           <h1 className="compl-mes">{message}</h1>

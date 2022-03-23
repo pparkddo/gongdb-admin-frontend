@@ -279,16 +279,6 @@ function AnnouncementEdit(props) {
             <input type="text" value={recruitType} onChange={e => setRecruitType(e.target.value)} />
           </li>
           <li className="col-xs-12 col-sm-6">
-            <h5>채용수준</h5>
-            <input type="text" value={recruitLevel} onChange={e => setRecruitLevel(e.target.value)} />
-          </li>
-        </ul>
-        <ul className="row">
-          <li className="col-xs-12 col-sm-6">
-            <h5>근무형태</h5>
-            <input type="text" value={workingType} onChange={e => setWorkingType(e.target.value)} />
-          </li>
-          <li className="col-xs-12 col-sm-6">
             <h5>지역명</h5>
             <input type="text" value={districtName} onChange={e => setDistrictName(e.target.value)} />
           </li>
@@ -306,27 +296,27 @@ function AnnouncementEdit(props) {
 
         <ul className="row plus-btn-wrap">
           <li className="col-xs-12 col-sm-6">
-            <h1>자격증</h1>
+            <h5>자격증</h5>
             {renderCertificates()}
             <button onClick={addCertificate} className="btn btn-primary">+</button>
           </li>
           <li className="col-xs-12 col-sm-6">
-            <h1>학과</h1>
+            <h5>학과</h5>
             {renderDepartments()}
             <button onClick={addDepartment} className="btn btn-primary">+</button>
           </li>
           <li className="col-xs-12 col-sm-6">
-            <h1>과목</h1>
+            <h5>과목</h5>
             {renderSubjects()}
             <button onClick={addSubject} className="btn btn-primary">+</button>
           </li>
           <li className="col-xs-12 col-sm-6">
-            <h1>어학점수</h1>
+            <h5>어학점수</h5>
             {renderLanguageScores()}
             <button onClick={addLanguageScore} className="btn btn-primary">+</button>
           </li>
           <li className="col-xs-12 col-sm-6">
-            <h1>기타사항</h1>
+            <h5>기타사항</h5>
             {renderNotes()}
             <button onClick={addNote} className="btn btn-primary">+</button>
           </li>

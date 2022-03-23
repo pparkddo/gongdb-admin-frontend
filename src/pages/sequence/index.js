@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import Spinner from "../../components/spinner";
 import completeImage from "../../images/pencil.png";
 import "./index.css";
+import dayjs from "dayjs";
+
+const formatTimestamp = (value) => {
+  return dayjs(value).format("YYYY-MM-DD HH:mm");
+};
 
 function Sequence() {
   
@@ -15,9 +20,9 @@ function Sequence() {
       .then(() => setLoading(false));
   };
 
-  const renderSequence = sequence => {
+  const renderSequence = (sequence, index) => {
     return (
-      <div className="con_wrap sequence">
+      <div className="con_wrap sequence" key={index}>
         <div className="container conbox">
           {/*inner*/}
           <div className="row table-wrap" style={{padding:'0 15px'}}>
@@ -32,34 +37,44 @@ function Sequence() {
                 <col style={{ width:'10%'}} />
                 <col style={{ width:'90%'}} />
               </colgroup>
-              <tr>
-                <th><p>차수아이디</p></th>
-                <td><p>{sequence.id}</p></td>
-              </tr>
-              <tr>
-                <th><p>회사아이디</p></th>
-                <td><p>{sequence.company.id}</p></td>
-              </tr>
-              <tr>
-                <th><p>접수시작일</p></th>
-                <td><p>{sequence.receiptStartTimestamp}</p></td>
-              </tr>
-              <tr>
-                <th><p>접수종료일</p></th>
-                <td><p>{sequence.receiptEndTimestamp}</p></td>
-              </tr>
-              <tr>
-                <th><p>링크</p></th>
-                <td><p>{sequence.link}</p></td>
-              </tr>
-              <tr>
-                <th><p>첨부파일</p></th>
-                <td><p>{sequence.files.map(renderFile)}</p></td>
-              </tr>
-              <tr>
-                <th><p>작성일</p></th>
-                <td><p>{sequence.createdTimestamp}</p></td>
-              </tr>
+              <tbody>
+                <tr>
+                  <th><p>차수아이디</p></th>
+                  <td><p>{sequence.id}</p></td>
+                </tr>
+                <tr>
+                  <th><p>근무유형</p></th>
+                  <td><p>{sequence.workingType}</p></td>
+                </tr>
+                <tr>
+                  <th><p>채용수준</p></th>
+                  <td><p>{sequence.recruitLevel}</p></td>
+                </tr>
+                <tr>
+                  <th><p>접수시작일</p></th>
+                  <td>
+                    <p>{formatTimestamp(sequence.receiptStartTimestamp)}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <th><p>접수종료일</p></th>
+                  <td>
+                    <p>{formatTimestamp(sequence.receiptEndTimestamp)}</p>
+                  </td>
+                </tr>
+                <tr>
+                  <th><p>링크</p></th>
+                  <td><p>{sequence.link}</p></td>
+                </tr>
+                <tr>
+                  <th><p>첨부파일</p></th>
+                  <td>{sequence.files.map(renderFile)}</td>
+                </tr>
+                <tr>
+                  <th><p>작성일</p></th>
+                  <td><p>{formatTimestamp(sequence.createdTimestamp)}</p></td>
+                </tr>
+              </tbody>
             </table>
           </div>
           <div className="text-right">
@@ -75,7 +90,7 @@ function Sequence() {
 
   const renderFile = file => {
     return (
-      <p>{file.id}, {file.fileName}</p>
+      <p key={file.id}>{file.id}, {file.fileName}</p>
     );
   };
 
@@ -91,7 +106,7 @@ function Sequence() {
     return (
       <div className="text-center">
         <div className="com-img">
-          <img src={completeImage}/>
+          <img src={completeImage} alt="complete" />
         </div>
         <h5>입력된 공고 차수가 없어요</h5>
       </div>
@@ -100,7 +115,7 @@ function Sequence() {
   
   return (
     <div>
-      {sequences.map(each => renderSequence(each))}
+      {sequences.map(renderSequence)}
     </div>
   );
 }

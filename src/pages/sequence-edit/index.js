@@ -1,38 +1,51 @@
 import "./index.css";
-import { saveAs } from 'file-saver';
-import { useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { fetchWrapper } from "../../helpers/fetch-wrapper";
-import { fail, success } from "../../components/alert";
-import Spinner from "../../components/spinner";
-import SubmitButton from "../../components/submit-button";
+import {saveAs} from 'file-saver';
+import {useHistory} from "react-router-dom";
+import {useState} from "react";
+import {fetchWrapper} from "helpers/fetch-wrapper";
+import {fail, success} from "components/alert";
+import Spinner from "components/spinner";
+import SubmitButton from "components/submit-button";
+import Select from "react-select";
+import useCodes from "services/codes";
+import useSequence from "../../services/sequence";
+import dayjs from "dayjs";
 
+const convertToOption = (value) => {
+  if (!value) {
+    return [];
+  }
+  if (typeof value === "string") {
+    return {value: value, label: value};
+  }
+  return value.map((each) => ({value: each, label: each}));
+};
+
+const dayFormat = "YYYY-MM-DDTHH:mm:ss";
 
 function SequenceEdit(props) {
 
   const params = props.match.params;
+  const sequenceId = params.id;
+
   const history = useHistory();
-  const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState();
-  const [companyName, setCompanyName] = useState("");
-  const [sequence, setSequence] = useState("");
-  const [receiptStartTimestamp, setReceiptStartTimestamp] = useState("");
-  const [receiptEndTimestamp, setReceiptEndTimestamp] = useState("");
-  const [link, setLink] = useState("");
+  const codeResponse = useCodes();
+  const sequenceResponse = useSequence(sequenceId);
+  const isLoading = codeResponse.isLoading || sequenceResponse.isLoading;
+  const isError = codeResponse.isError || sequenceResponse.isError;
+  const {sequence, mutate: mutateSequence} = sequenceResponse;
+
   const [files, setFiles] = useState([]);  // 새로 추가할 파일
   const [uploadedFiles, setUploadedFiles] = useState([]); // 기존에 들어있는 파일들
-  const [isFetching, setFetching] = useState();
+  const [isFetching, setFetching] = useState(false);
 
-  const getData = sequenceId => {
-    fetch(`/api/sequence/${sequenceId}`)
-      .then(response => response.json())
-      .then(data => setData(data))
-      .then(() => setLoading(false));
-  };
+  const updateSequence = (key, value) => {
+    return mutateSequence({...sequence, [key]: value}, false);
+  }
 
   const put = () => {
     setFetching(true);
-    fetchWrapper.put(`/api/sequence/${data.id}`, getFormData())
+    fetchWrapper.put(`/api/sequence/${sequenceId}`, getFormData())
       .then(response => response.json())
       .then(data => history.replace("/sequence/submit-complete", {
           message: data.message,
@@ -43,11 +56,13 @@ function SequenceEdit(props) {
 
   const getFormData = () => {
     const content = {
-      companyName: companyName,
-      sequence: sequence,
-      receiptStartTimestamp: receiptStartTimestamp,
-      receiptEndTimestamp: receiptEndTimestamp,
-      link: link,
+      companyName: sequence.companyName || sequence.company.name,
+      sequence: sequence.sequence,
+      workingType: sequence.workingType,
+      recruitLevel: sequence.recruitLevel,
+      receiptStartTimestamp: sequence.receiptStartTimestamp,
+      receiptEndTimestamp: sequence.receiptEndTimestamp,
+      link: sequence.link,
     }
 
     const formData = new FormData();
@@ -61,7 +76,7 @@ function SequenceEdit(props) {
 
   const deleteSequence = () => {
     setFetching(true);
-    fetchWrapper.delete(`/api/sequence/${data.id}`)
+    fetchWrapper.delete(`/api/sequence/${sequenceId}`)
       .then(response => response.json())
       .then(data => history.replace("/sequence/delete-complete", {
           message: data.message,
@@ -93,74 +108,6 @@ function SequenceEdit(props) {
     setFetching(false);
   };
 
-  const renderForm = () => (
-    <div className="con_wrap sequence-edit-wrap">
-      {/*inner*/}
-      <div className="container conbox">
-
-        <ul className="row">       
-          <li className="col-xs-12 col-sm-6">
-            <h5 class="col-12">회사명</h5>
-            <input type="text" value={companyName} onChange={e => setCompanyName(e.target.value)} />
-          </li>
-          <li className="col-xs-12 col-sm-6">
-            <h5 class="col-12">링크</h5>
-            <input type="text" value={link} onChange={e => setLink(e.target.value)} />
-          </li>
-        </ul>
-
-        <ul className="row">
-          <li className="col-xs-12 col-sm-6">
-            <h5 class="col-12">차수명</h5>
-            <input type="text" value={sequence} onChange={e => setSequence(e.target.value)} />
-          </li>
-         <li className="col-xs-12 col-sm-6">
-            <h5 class="col-12">차수ID</h5>
-            <input type="text" value={data.id} disabled />
-          </li>
-        </ul>
-
-        <ul className="row">
-          <li className="col-xs-12 col-sm-6">
-            <h5 class="col-12">접수시작일</h5>
-            <input type="datetime-local" value={receiptStartTimestamp} onChange={e => setReceiptStartTimestamp(e.target.value)} />
-          </li>
-          <li className="col-xs-12 col-sm-6">
-            <h5 class="col-12">접수종료일</h5>
-            <input type="datetime-local" value={receiptEndTimestamp} onChange={e => setReceiptEndTimestamp(e.target.value)} />
-          </li>
-        </ul>
-
-        <ul class="row">
-          <li className="col-xs-12 margin-bz">
-            <h5>첨부파일</h5>
-            {uploadedFiles.map(renderFile)}
-          </li>
-          <li class="col-xs-12">
-            <input type="file" onChange={e => setFiles(e.target.files)} multiple />
-          </li>
-        </ul>  
-
-        <ul className="row btn-wrap">
-          <li className="col-6" style={{textAlign: 'right'}}>
-            <SubmitButton
-              className="btn btn-primary"
-              onClick={put}
-              isLoading={isFetching}
-              content="차수 수정" />
-          </li> 
-          <li className="col-6">
-          <SubmitButton
-            className="btn btn-danger"
-            onClick={deleteSequence}
-            isLoading={isFetching}
-            content="삭제" />
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
-
   const renderFile = file => {
     return (
       <li key={file.id} className="mar-top">
@@ -169,32 +116,19 @@ function SequenceEdit(props) {
           onClick={() => download(file.id, file.fileName)}
           content={file.id}
           isLoading={isFetching} />
-          <span className="ren-span">: {JSON.stringify(file)} </span>
+          <span className="ren-span">{file.fileName}</span>
         <SubmitButton
           className="btn btn-danger ren-file"
-          onClick={() => deleteAttachment(data.id, file.id)}
+          onClick={() => deleteAttachment(sequenceId, file.id)}
           content="삭제"
           isLoading={isFetching} />
       </li>
     );
   };
 
-  useEffect(() => {
-    const sequenceId = params.id;
-    getData(sequenceId);
-  }, [params]);
-
-  useEffect(() => {
-    if (!data) {
-      return;
-    } 
-    setCompanyName(data.company.name);
-    setSequence(data.sequence);
-    setReceiptStartTimestamp(data.receiptStartTimestamp);
-    setReceiptEndTimestamp(data.receiptEndTimestamp);
-    setLink(data.link);
-    setUploadedFiles(data.files);
-  }, [data]);
+  if (isError) {
+    return <p>Error on fetching</p>;
+  }
 
   if (isLoading) {
     return <Spinner />;
@@ -202,7 +136,114 @@ function SequenceEdit(props) {
 
   return (
     <div>
-      {data && renderForm()}
+      <div className="con_wrap sequence-edit-wrap">
+        {/*inner*/}
+        <div className="container conbox">
+
+          <ul className="row">
+            <li className="col-xs-12 col-sm-6">
+              <h5 className="col-12">회사명</h5>
+              <input
+                  type="text"
+                  value={sequence.companyName || sequence.company.name}
+                  onChange={e => updateSequence("companyName", e.target.value)}
+              />
+            </li>
+            <li className="col-xs-12 col-sm-6">
+              <h5 className="col-12">링크</h5>
+              <input
+                  type="text"
+                  value={sequence.link}
+                  onChange={e => updateSequence("link", e.target.value)}
+              />
+            </li>
+          </ul>
+
+          <ul className="row">
+            <li className="col-xs-12 col-sm-6">
+              <h5 className="col-12">차수명</h5>
+              <input
+                  type="text"
+                  value={sequence.sequence}
+                  onChange={e => updateSequence("sequence", e.target.value)}
+              />
+            </li>
+            <li className="col-xs-12 col-sm-6">
+              <h5 className="col-12">차수ID</h5>
+              <input type="text" value={sequenceId} disabled />
+            </li>
+          </ul>
+
+          <ul className="row">
+            <li className="col-xs-12 col-sm-6">
+              <h5 className="col-12">근무형태</h5>
+              <Select
+                  isSearchable={false}
+                  defaultValue={convertToOption(sequence.workingType)}
+                  options={convertToOption(codeResponse.workingTypes)}
+                  onChange={(option) => updateSequence("workingType", option.value)}
+              />
+            </li>
+            <li className="col-xs-12 col-sm-6">
+              <h5 className="col-12">채용수준</h5>
+              <Select
+                  isSearchable={false}
+                  defaultValue={convertToOption(sequence.recruitLevel)}
+                  options={convertToOption(codeResponse.recruitLevels)}
+                  onChange={(option) => updateSequence("recruitLevel", option.value)}
+              />
+            </li>
+          </ul>
+
+          <ul className="row">
+            <li className="col-xs-12 col-sm-6">
+              <h5 className="col-12">접수시작일</h5>
+              <input
+                  type="datetime-local"
+                  value={dayjs(sequence.receiptStartTimestamp).format(dayFormat)}
+                  onChange={e => updateSequence("receiptStartTimestamp", e.target.value)}
+              />
+            </li>
+            <li className="col-xs-12 col-sm-6">
+              <h5 className="col-12">접수종료일</h5>
+              <input
+                  type="datetime-local"
+                  value={dayjs(sequence.receiptEndTimestamp).format(dayFormat)}
+                  onChange={e => updateSequence("receiptEndTimestamp", e.target.value)}
+              />
+            </li>
+          </ul>
+
+          <ul className="row">
+            <li className="col-xs-12 margin-bz">
+              <h5>첨부파일</h5>
+              <ul>
+                {sequence.files.map(renderFile)}
+              </ul>
+            </li>
+            <li className="col-xs-12">
+              <input type="file" onChange={e => setFiles(e.target.files)} multiple />
+            </li>
+          </ul>
+
+          <ul className="row btn-wrap">
+            <li className="col-6" style={{textAlign: 'right'}}>
+              <SubmitButton
+                  className="btn btn-primary"
+                  onClick={put}
+                  isLoading={isFetching}
+                  content="차수 수정" />
+            </li>
+            <li className="col-6">
+              <SubmitButton
+                  className="btn btn-danger"
+                  onClick={deleteSequence}
+                  isLoading={isFetching}
+                  content="삭제" />
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
