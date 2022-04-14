@@ -10,6 +10,7 @@ a{ color: #191f28; text-decoration:none;}
 input{ color: #191f28; text-decoration:none;}
 .cf::after{ content:""; display:block; clear:both;}
 .blue01{color:#3182f6;}
+.black{color:#191f28;}
 .row {padding:0; margin:0;}
 /*default-end*/
 

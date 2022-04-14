@@ -234,13 +234,19 @@ function SequenceEdit(props) {
                   isLoading={isFetching}
                   content="차수 수정" />
             </li>
-            <li className="col-6">
+            <li className="col-6 delete-button-container">
               <SubmitButton
                   className="btn btn-danger"
                   onClick={deleteSequence}
                   isLoading={isFetching}
                   content="삭제" />
             </li>
+
+            <style jsx>{`
+              .delete-button-container > :global(button > .submit-button-content) {
+                color: #4e5968;
+              }
+            `}</style>
           </ul>
         </div>
       </div>

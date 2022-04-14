@@ -26,7 +26,9 @@ function Sequence() {
         <div className="container conbox">
           {/*inner*/}
           <div className="row table-wrap" style={{padding:'0 15px'}}>
-            <h3 style={{ padding:'0', width:'auto'}}>{sequence.company.name} {sequence.sequence}</h3>
+            <h3 style={{ padding:'0', width:'auto'}}>
+              {sequence.company.name} {sequence.sequence}
+            </h3>
             <span style={{width:'auto'}}>
               <a href={`/sequence/${sequence.id}`}>
                 < img className="editImg" src={completeImage} />
@@ -77,12 +79,17 @@ function Sequence() {
               </tbody>
             </table>
           </div>
-          <div className="text-right">
+          <div className="text-center">
             <a className="btn btn-primary mx-1" href={`/sequence/${sequence.id}/announcement`}>공고입력</a>
             <a className="btn btn-primary mx-1" href={`/sequence/${sequence.id}/examination-schedule`}>전형일정입력</a>
             <a className="btn btn-primary mx-1" href={`/sequence/${sequence.id}/cover-letter`}>자소서입력</a>
           </div>
           {/*inner*/}
+          <style jsx>{`
+            .delete-button-container > :global(button > .submit-button-content) {
+              color: #333;
+            }
+          `}</style>
         </div>
       </div>
     );

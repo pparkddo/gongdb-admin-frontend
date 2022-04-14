@@ -1,5 +1,6 @@
 import Spinner from "components/spinner";
 import completeImage from "images/complete.png";
+import editImg from "../../images/pencil.png";
 import usePagedAnnouncement from "services/announcement";
 import dayjs from "dayjs";
 
@@ -45,15 +46,19 @@ function Announcement({announcement}) {
       <div className="con_wrap sequence">
         <div className="container conbox">
           {/*inner*/}
-          <div className="table-wrap">
-            <h3>
+          <div className="table-wrap" style={{padding:'0 15px'}}>
+          <h3 style={{padding:'0', width:'auto'}}>
               {`
                 ${announcement.sequence.company.name} 
                 ${announcement.sequence.sequence} 
                 (${announcement.position.positionName})
               `}
-            </h3>
-            <a href={`/announcement/${announcement.id}`}>edit</a>
+            <span>
+              <a href={`/announcement/${announcement.id}`}><img className="editImg" src={editImg} /></a>
+            </span>
+          </h3>
+            
+            
             <table style={{ width:'100%'}}>
               <colgroup>
                 <col style={{ width:'30%'}} />

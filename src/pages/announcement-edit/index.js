@@ -331,7 +331,7 @@ function AnnouncementEdit(props) {
               useSpinner
               content="공고 수정"/>
           </li>
-          <li className="col-6">
+          <li className="col-6 delete-button-container">
             <SubmitButton
               className="btn btn-danger"
               onClick={deleteAnnouncement}
@@ -341,8 +341,15 @@ function AnnouncementEdit(props) {
         </ul>
       </div>
       {/*inner*/}
+      <style jsx>{`
+        .delete-button-container > :global(button > .submit-button-content) {
+          color: #4e5968;
+        }
+      `}</style>
     </div>
   );
 }
+
+
 
 export default AnnouncementEdit;

@@ -10,7 +10,7 @@ function SubmitButton(props) {
     if (isLoading && useSpinner) {
       return <span className="spinner-border spinner-border-sm"></span>;
     }
-    return <span>{content}</span>;
+    return <span className="submit-button-content">{content}</span>;
   };
 
   return (
