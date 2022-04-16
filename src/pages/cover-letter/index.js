@@ -113,7 +113,7 @@ export default function CoverLetter(props) {
         <SubmitButton
           onClick={hasDataBefore ? put : post}
           isLoading={isFetching}
-          content={hasDataBefore ? "전형정보 수정" : "전형정보 입력"}
+          content={hasDataBefore ? "자소서 수정" : "자소서 입력"}
           useSpinner
         />
       </div>

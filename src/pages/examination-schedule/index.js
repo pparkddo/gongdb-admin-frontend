@@ -5,11 +5,35 @@ import {fail} from "components/alert";
 import {useHistory} from "react-router-dom";
 import Spinner from "components/spinner";
 import css from "styled-jsx/css";
+import {formatDate} from "utils/dateUtil";
 
 const requestHeader = {
   headers: {
     "Content-Type": "application/json;charset=utf8"
   },
+};
+
+const capitalize = (s) => {
+  return s[0].toUpperCase() + s.slice(1);
+};
+
+const estimatedDateFormat = "YYYY-MM-DD HH:mm";
+
+const convertToInputAcceptableFormat = (value) => {
+  if (!value) {
+    return "";
+  }
+  const inputAcceptableFormat = "YYYY-MM-DDTHH:mm";
+  return formatDate(value, inputAcceptableFormat);
+};
+
+const convertExaminationSchedule = (examinationSchedule) => {
+  return examinationSchedule.map((each) => ({
+    ...each,
+    examinationStartDate: convertToInputAcceptableFormat(each.examinationStartDate),
+    examinationEndDate: convertToInputAcceptableFormat(each.examinationEndDate),
+    examinationResultNoticeDate: convertToInputAcceptableFormat(each.examinationResultNoticeDate),
+  }));
 };
 
 export default function ExaminationSchedule(props) {
@@ -51,7 +75,8 @@ export default function ExaminationSchedule(props) {
           if (data.examinationScheduleItems.length === 0) {
             return;
           }
-          setExaminationSchedule(data.examinationScheduleItems);
+          console.log(convertExaminationSchedule(data.examinationScheduleItems));
+          setExaminationSchedule(convertExaminationSchedule(data.examinationScheduleItems));
           setHasDataBefore(true);
         }
       )
@@ -87,6 +112,19 @@ export default function ExaminationSchedule(props) {
   };
 
   const changeExaminationScheduleItem = (index, name, value) => {
+    const concretes = [
+      "examinationStartDate", "examinationEndDate",
+      "examinationResultNoticeDate"
+    ];
+    if (concretes.includes(name)) {
+      const estimated = "estimated" + capitalize(name);
+      const estimatedDate = value ? formatDate(value, estimatedDateFormat) : "";
+      _changeExaminationScheduleItem(index, estimated, estimatedDate);
+    }
+    _changeExaminationScheduleItem(index, name, value);
+  }
+
+  const _changeExaminationScheduleItem = (index, name, value) => {
     const newExaminationSchedule = [...examinationSchedule];
     newExaminationSchedule[index][name] = value;
     setExaminationSchedule(newExaminationSchedule);
@@ -129,7 +167,9 @@ export default function ExaminationSchedule(props) {
       <li className="pad0">
         {items}
         <div className="pad15">
-          <button className="col-12 btn-mi" onClick={addExaminationScheduleItem}>+</button>
+          <button className="col-12 btn-mi" onClick={addExaminationScheduleItem}>
+            +
+          </button>
         </div>
       </li>
       <li className="pad15">
@@ -145,73 +185,6 @@ export default function ExaminationSchedule(props) {
     </ul>
   );
 }
-
-const styles = css`
-  .row {
-    padding-right: 0;
-    padding-left: 0;
-    margin: 0 auto;
-  }
-  button, :global(.blue-btn) {
-    margin: 0 auto;
-    margin-bottom:20px;
-    padding: 14px 18px;
-    font-size: .875rem;
-    line-height: 12px;
-    color: #fff;
-    border:none;
-    border-radius: 8px;
-    cursor: pointer;
-    background-color: #3182f6;
-  }
-  button > span, :global(.blue-btn > span) {
-    color: #fff;
-  }
-  label {
-    font-weight: 500;
-    margin-bottom: 10px;
-    font-size: 1.25rem;
-  }
-  input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 50px;
-    font-size: 12px;
-    color: #333d4b;
-    background: rgba(0,23,51,0.02);
-    border-radius: 5px;
-    border: 1px solid #f2f2f2;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-  }
-  .pad0 {
-    padding: 0;
-  }
-  .pad15 {
-    padding-right: calc(var(--bs-gutter-x) * .5);
-    padding-left: calc(var(--bs-gutter-x) * .5);
-  }
-  .btn_mi {
-    margin: 0 auto;
-    padding: 14px 18px;
-    margin-bottom: 20px;
-    border:none;
-    border-radius: 8px;
-    cursor: pointer;
-    background-color: #3182f6;
-    color: #fff;
-    font-weight: 900;
-    line-height: 12px;
-    text-align: center;
-  }
-  .btn_mi:hover {
-    background-color: #1B64DB;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-  }
-  .contain {
-    max-width: 600px!important;
-    margin: 0 auto;
-  }
-`;
 
 function ExaminationScheduleItem({item, index, onChangeItem, onDeleteItem}) {
 
@@ -249,22 +222,6 @@ function ExaminationScheduleItem({item, index, onChangeItem, onDeleteItem}) {
             />
           </li>
           <li className="col-xs-12 col-sm-6">
-            <label htmlFor="estimatedExaminationEndDate">전형종료 추정일</label>
-            <input
-                name="estimatedExaminationEndDate"
-                value={estimatedExaminationEndDate}
-                onChange={onChangeEvent}
-            />
-          </li>
-          <li className="col-xs-12 col-sm-6">
-            <label htmlFor="estimatedExaminationResultNoticeDate">전형결과공지 추정일</label>
-            <input
-                name="estimatedExaminationResultNoticeDate"
-                value={estimatedExaminationResultNoticeDate}
-                onChange={onChangeEvent}
-            />
-          </li>
-          <li className="col-xs-12 col-sm-6">
             <label htmlFor="examinationStartDate">전형시작일</label>
             <input
                 name="examinationStartDate"
@@ -274,11 +231,27 @@ function ExaminationScheduleItem({item, index, onChangeItem, onDeleteItem}) {
             />
           </li>
           <li className="col-xs-12 col-sm-6">
+            <label htmlFor="estimatedExaminationEndDate">전형종료 추정일</label>
+            <input
+                name="estimatedExaminationEndDate"
+                value={estimatedExaminationEndDate}
+                onChange={onChangeEvent}
+            />
+          </li>
+          <li className="col-xs-12 col-sm-6">
             <label htmlFor="examinationEndDate">전형종료일</label>
             <input
                 name="examinationEndDate"
                 type="datetime-local"
                 value={examinationEndDate}
+                onChange={onChangeEvent}
+            />
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <label htmlFor="estimatedExaminationResultNoticeDate">전형결과공지 추정일</label>
+            <input
+                name="estimatedExaminationResultNoticeDate"
+                value={estimatedExaminationResultNoticeDate}
                 onChange={onChangeEvent}
             />
           </li>
@@ -317,3 +290,78 @@ function ExaminationScheduleItem({item, index, onChangeItem, onDeleteItem}) {
       </div>
   );
 }
+
+const styles = css`
+  .row {
+    padding-right: 0;
+    padding-left: 0;
+    margin: 0 auto;
+  }
+
+  button, :global(.blue-btn) {
+    margin: 0 auto 20px;
+    padding: 14px 18px;
+    font-size: .875rem;
+    line-height: 12px;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #3182f6;
+  }
+
+  button > span, :global(.blue-btn > span) {
+    color: #fff;
+  }
+
+  label {
+    font-weight: 500;
+    margin-bottom: 10px;
+    font-size: 1.25rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 50px;
+    font-size: 12px;
+    color: #333d4b;
+    background: rgba(0, 23, 51, 0.02);
+    border-radius: 5px;
+    border: 1px solid #f2f2f2;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  }
+
+  .pad0 {
+    padding: 0;
+  }
+
+  .pad15 {
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    padding-left: calc(var(--bs-gutter-x) * .5);
+  }
+
+  .btn_mi {
+    margin: 0 auto;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #3182f6;
+    color: #fff;
+    font-weight: 900;
+    line-height: 12px;
+    text-align: center;
+  }
+
+  .btn_mi:hover {
+    background-color: #1B64DB;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  }
+
+  .contain {
+    max-width: 600px !important;
+    margin: 0 auto;
+  }
+`;
