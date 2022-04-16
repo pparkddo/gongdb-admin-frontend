@@ -54,7 +54,9 @@ function Announcement({announcement}) {
                 (${announcement.position.positionName})
               `}
             <span>
-              <a href={`/announcement/${announcement.id}`}><img className="editImg" src={editImg} /></a>
+              <a href={`/announcement/${announcement.id}`}>
+                <img className="editImg" src={editImg} alt="edit announcement" />
+              </a>
             </span>
           </h3>
             

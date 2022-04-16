@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import Spinner from "../../components/spinner";
-import completeImage from "../../images/pencil.png";
+import Spinner from "components/spinner";
+import completeImage from "images/complete.png";
+import editImg from "images/pencil.png";
 import "./index.css";
 import dayjs from "dayjs";
 
@@ -31,7 +32,7 @@ function Sequence() {
             </h3>
             <span style={{width:'auto'}}>
               <a href={`/sequence/${sequence.id}`}>
-                < img className="editImg" src={completeImage} />
+                <img className="editImg" src={editImg} alt="edit sequence"/>
               </a>
             </span>
             <table className="col-xs-12">

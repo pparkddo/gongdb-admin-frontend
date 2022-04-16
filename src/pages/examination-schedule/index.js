@@ -1,9 +1,9 @@
 import {useEffect, useState} from "react";
-import SubmitButton from "../../components/submit-button";
-import {fetchWrapper} from "../../helpers/fetch-wrapper";
-import {fail} from "../../components/alert";
+import SubmitButton from "components/submit-button";
+import {fetchWrapper} from "helpers/fetch-wrapper";
+import {fail} from "components/alert";
 import {useHistory} from "react-router-dom";
-import Spinner from "../../components/spinner";
+import Spinner from "components/spinner";
 import css from "styled-jsx/css";
 
 const requestHeader = {
@@ -12,7 +12,7 @@ const requestHeader = {
   },
 };
 
-function Index(props) {
+export default function ExaminationSchedule(props) {
 
   const history = useHistory();
   const id = props.match.params.id;
@@ -36,6 +36,13 @@ function Index(props) {
     ]
   );
 
+  const handleError = error => {
+    console.log(error, error.data);
+    const errorContent = JSON.stringify(error);
+    fail(errorContent);
+    setFetching(false);
+  };
+
   useEffect(() => {
     fetchWrapper.get(`/api/sequence/${id}/examination-schedule`)
       .then(response => response.json())
@@ -51,6 +58,10 @@ function Index(props) {
       .then(() => setLoading(false))
       .catch(handleError);
   }, [id]);
+
+  if (isLoading) {
+    return <Spinner />
+  }
 
   const post = () => {
     submit(fetchWrapper.post);
@@ -73,104 +84,6 @@ function Index(props) {
         previousPath: document.location.pathname
       }))
       .catch(handleError);
-  };
-
-  const handleError = error => {
-    console.log(error, error.data);
-    const errorContent = JSON.stringify(error);
-    fail(errorContent);
-    setFetching(false);
-  };
-
-  const renderExaminationScheduleItem = (value, index) => {
-    return (
-      <div className="contain">
-        <ul className="row" key={index}>
-          <li className="col-xs-12 col-sm-6">
-            <label htmlFor="examinationSequenceNo">전형순서</label>
-            <input name="examinationSequenceNo" value={ index+1 } disabled />
-          </li>
-          <li className="col-xs-12 col-sm-6">
-            <label htmlFor="examinationType">전형유형</label>
-            <input
-              name="examinationType"
-              value={value.examinationType}
-              onChange={e => changeExaminationScheduleItem(index, e.target.name, e.target.value)}
-            />
-          </li>
-          <li className="col-xs-12 col-sm-6">
-            <label htmlFor="estimatedExaminationStartDate">전형시작 추정일</label>
-            <input
-              name="estimatedExaminationStartDate"
-              value={value.estimatedExaminationStartDate}
-              onChange={e => changeExaminationScheduleItem(index, e.target.name, e.target.value)}
-            />
-          </li>
-          <li className="col-xs-12 col-sm-6">
-            <label htmlFor="estimatedExaminationEndDate">전형종료 추정일</label>
-            <input
-              name="estimatedExaminationEndDate"
-              value={value.estimatedExaminationEndDate}
-              onChange={e => changeExaminationScheduleItem(index, e.target.name, e.target.value)}
-            />
-          </li>
-          <li className="col-xs-12 col-sm-6">
-            <label htmlFor="estimatedExaminationResultNoticeDate">전형결과공지 추정일</label>
-            <input
-              name="estimatedExaminationResultNoticeDate"
-              value={value.estimatedExaminationResultNoticeDate}
-              onChange={e => changeExaminationScheduleItem(index, e.target.name, e.target.value)}
-            />
-          </li>
-          <li className="col-xs-12 col-sm-6">
-            <label htmlFor="examinationStartDate">전형시작일</label>
-            <input
-              name="examinationStartDate"
-              type="datetime-local"
-              value={value.examinationStartDate}
-              onChange={e => changeExaminationScheduleItem(index, e.target.name, e.target.value)}
-            />
-          </li>
-          <li className="col-xs-12 col-sm-6">
-            <label htmlFor="examinationEndDate">전형종료일</label>
-            <input
-              name="examinationEndDate"
-              type="datetime-local"
-              value={value.examinationEndDate}
-              onChange={e => changeExaminationScheduleItem(index, e.target.name, e.target.value)}
-            />
-          </li>
-          <li className="col-xs-12 col-sm-6">
-            <label htmlFor="examinationResultNoticeDate">전형결과공지일</label>
-            <input
-              name="examinationResultNoticeDate"
-              type="datetime-local"
-              value={value.examinationResultNoticeDate}
-              onChange={e => changeExaminationScheduleItem(index, e.target.name, e.target.value)}
-            />
-          </li>
-          <li className="col-xs-12 col-sm-6">
-            <label htmlFor="selectingRete">선발배수</label>
-            <input
-              name="selectingRete"
-              value={value.selectingRate}
-              onChange={e => changeExaminationScheduleItem(index, e.target.name, e.target.value)}
-            />
-          </li>
-          <li className="col-xs-12 col-sm-6">
-            <label htmlFor="note">기타사항</label>
-            <input
-              name="note"
-              value={value.note}
-              onChange={e => changeExaminationScheduleItem(index, e.target.name, e.target.value)}
-            />
-          </li>
-          <li>
-            <button className="col-12 btn_mi no_pad mar_b20" onClick={() => deleteExaminationScheduleItem(index)}>-</button>
-          </li>
-        </ul>
-      </div>
-    );
   };
 
   const changeExaminationScheduleItem = (index, name, value) => {
@@ -201,14 +114,20 @@ function Index(props) {
     setExaminationSchedule(newExaminationSchedule);
   };
 
-  if (isLoading) {
-    return <Spinner />
-  }
+  const items = examinationSchedule.map((each, index) => (
+      <ExaminationScheduleItem
+          item={each}
+          index={index}
+          onChangeItem={changeExaminationScheduleItem}
+          onDeleteItem={deleteExaminationScheduleItem}
+          key={index}
+      />
+  ));
 
   return (
     <ul className="row contain">
       <li className="pad0">
-        {examinationSchedule.map(renderExaminationScheduleItem)}
+        {items}
         <div className="pad15">
           <button className="col-12 btn-mi" onClick={addExaminationScheduleItem}>+</button>
         </div>
@@ -222,29 +141,18 @@ function Index(props) {
           useSpinner
         />
       </li>
-      <style jsx>{style}</style>
-      <style jsx global>{globalStyle}</style>
+      <style jsx>{styles}</style>
     </ul>
   );
 }
 
-const style = css`
-  .background-test {
-  }
-`;
-
-const labelStyle = css`
-  label {
-  }
-`;
-
-const globalStyle = css.global`
+const styles = css`
   .row {
     padding-right: 0;
     padding-left: 0;
     margin: 0 auto;
   }
-  button,.blue-btn {
+  button, :global(.blue-btn) {
     margin: 0 auto;
     margin-bottom:20px;
     padding: 14px 18px;
@@ -256,7 +164,7 @@ const globalStyle = css.global`
     cursor: pointer;
     background-color: #3182f6;
   }
-  button > span {
+  button > span, :global(.blue-btn > span) {
     color: #fff;
   }
   label {
@@ -264,7 +172,7 @@ const globalStyle = css.global`
     margin-bottom: 10px;
     font-size: 1.25rem;
   }
-  input{
+  input {
     width: 100%;
     padding: 10px;
     margin-bottom: 50px;
@@ -275,14 +183,14 @@ const globalStyle = css.global`
     border: 1px solid #f2f2f2;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   }
-  .pad0{
+  .pad0 {
     padding: 0;
   }
-  .pad15{
+  .pad15 {
     padding-right: calc(var(--bs-gutter-x) * .5);
     padding-left: calc(var(--bs-gutter-x) * .5);
   }
-  .btn_mi{
+  .btn_mi {
     margin: 0 auto;
     padding: 14px 18px;
     margin-bottom: 20px;
@@ -295,14 +203,117 @@ const globalStyle = css.global`
     line-height: 12px;
     text-align: center;
   }
-  .btn_mi:hover{ 
+  .btn_mi:hover {
     background-color: #1B64DB;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
   }
-  .contain{
+  .contain {
     max-width: 600px!important;
     margin: 0 auto;
   }
 `;
 
-export default Index;
+function ExaminationScheduleItem({item, index, onChangeItem, onDeleteItem}) {
+
+  const onChangeEvent = (event) => {
+    return onChangeItem(index, event.target.name, event.target.value);
+  }
+
+  const {
+    examinationType, estimatedExaminationStartDate, estimatedExaminationEndDate,
+    estimatedExaminationResultNoticeDate, examinationStartDate,
+    examinationEndDate, examinationResultNoticeDate, selectingRate, note
+  } = item;
+
+  return (
+      <div className="contain">
+        <ul className="row" key={index}>
+          <li className="col-xs-12 col-sm-6">
+            <label htmlFor="examinationSequenceNo">전형순서</label>
+            <input name="examinationSequenceNo" value={ index+1 } disabled />
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <label htmlFor="examinationType">전형유형</label>
+            <input
+                name="examinationType"
+                value={examinationType}
+                onChange={onChangeEvent}
+            />
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <label htmlFor="estimatedExaminationStartDate">전형시작 추정일</label>
+            <input
+                name="estimatedExaminationStartDate"
+                value={estimatedExaminationStartDate}
+                onChange={onChangeEvent}
+            />
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <label htmlFor="estimatedExaminationEndDate">전형종료 추정일</label>
+            <input
+                name="estimatedExaminationEndDate"
+                value={estimatedExaminationEndDate}
+                onChange={onChangeEvent}
+            />
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <label htmlFor="estimatedExaminationResultNoticeDate">전형결과공지 추정일</label>
+            <input
+                name="estimatedExaminationResultNoticeDate"
+                value={estimatedExaminationResultNoticeDate}
+                onChange={onChangeEvent}
+            />
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <label htmlFor="examinationStartDate">전형시작일</label>
+            <input
+                name="examinationStartDate"
+                type="datetime-local"
+                value={examinationStartDate}
+                onChange={onChangeEvent}
+            />
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <label htmlFor="examinationEndDate">전형종료일</label>
+            <input
+                name="examinationEndDate"
+                type="datetime-local"
+                value={examinationEndDate}
+                onChange={onChangeEvent}
+            />
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <label htmlFor="examinationResultNoticeDate">전형결과공지일</label>
+            <input
+                name="examinationResultNoticeDate"
+                type="datetime-local"
+                value={examinationResultNoticeDate}
+                onChange={onChangeEvent}
+            />
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <label htmlFor="selectingRate">선발배수</label>
+            <input
+                name="selectingRate"
+                value={selectingRate}
+                onChange={onChangeEvent}
+            />
+          </li>
+          <li className="col-xs-12 col-sm-6">
+            <label htmlFor="note">기타사항</label>
+            <input
+                name="note"
+                value={note}
+                onChange={onChangeEvent}
+            />
+          </li>
+          <li>
+            <button className="col-12 btn_mi no_pad mar_b20" onClick={() => onDeleteItem(index)}>
+              -
+            </button>
+          </li>
+        </ul>
+        <style jsx>{styles}</style>
+      </div>
+  );
+}

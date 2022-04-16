@@ -1,7 +1,6 @@
 import { Link, useHistory } from "react-router-dom";
 import "./index.css";
-
-import completeImage from "../../images/complete.png";
+import completeImage from "images/complete.png";
 
 function AnnouncementSubmitComplete(props) {
 

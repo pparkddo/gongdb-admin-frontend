@@ -8,7 +8,7 @@ function SubmitButton(props) {
 
   const renderName = () => {
     if (isLoading && useSpinner) {
-      return <span className="spinner-border spinner-border-sm"></span>;
+      return <span className="spinner-border spinner-border-sm"/>;
     }
     return <span className="submit-button-content">{content}</span>;
   };
