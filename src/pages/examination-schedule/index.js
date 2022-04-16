@@ -217,7 +217,7 @@ function ExaminationScheduleItem({item, index, onChangeItem, onDeleteItem}) {
 
   const onChangeEvent = (event) => {
     return onChangeItem(index, event.target.name, event.target.value);
-  }
+  };
 
   const {
     examinationType, estimatedExaminationStartDate, estimatedExaminationEndDate,

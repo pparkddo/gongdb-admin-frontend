@@ -1,6 +1,6 @@
 import Spinner from "components/spinner";
 import completeImage from "images/complete.png";
-import editImg from "../../images/pencil.png";
+import editImg from "images/pencil.png";
 import usePagedAnnouncement from "services/announcement";
 import dayjs from "dayjs";
 

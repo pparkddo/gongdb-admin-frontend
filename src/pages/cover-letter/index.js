@@ -1,9 +1,10 @@
 import {useEffect, useState} from "react";
-import {fetchWrapper} from "../../helpers/fetch-wrapper";
-import {fail} from "../../components/alert";
-import SubmitButton from "../../components/submit-button";
+import {fetchWrapper} from "helpers/fetch-wrapper";
+import {fail} from "components/alert";
+import SubmitButton from "components/submit-button";
 import {useHistory} from "react-router-dom";
-import Spinner from "../../components/spinner";
+import Spinner from "components/spinner";
+import css from "styled-jsx/css";
 
 const requestHeader = {
   headers: {
@@ -11,7 +12,7 @@ const requestHeader = {
   },
 };
 
-function CoverLetter(props) {
+export default function CoverLetter(props) {
 
   const history = useHistory();
   const id = props.match.params.id;
@@ -86,37 +87,29 @@ function CoverLetter(props) {
     setCoverLetters(newCoverLetters);
   };
 
-  const renderCoverLetter = (coverLetter, index) => {
-    return (
-      <li key={index}>
-        <input
-          name="sequenceNo"
-          value={coverLetter.sequenceNo}
-          onChange={(event) => handleCoverLetterChange(index, event.target.name, event.target.value)}
-        />
-        <input
-          name="question"
-          value={coverLetter.question}
-          onChange={(event) => handleCoverLetterChange(index, event.target.name, event.target.value)}
-        />
-        <button onClick={() => deleteCoverLetter(index)}>-</button>
-      </li>
-    );
-  };
-
   if (isLoading) {
     return <Spinner />
   }
 
+  const items = coverLetters.map((each, index) =>
+      <CoverLetterItem
+          index={index}
+          coverLetter={each}
+          onChangeItem={handleCoverLetterChange}
+          onDeleteItem={deleteCoverLetter}
+          key={index}
+      />
+  );
+
   return (
-    <div>
-      <div>
-        <ul>
-          {coverLetters.map(renderCoverLetter)}
+    <div className="container">
+      <div className="cover-letter-container">
+        <ul className="item-container">
+          {items}
         </ul>
-        <button onClick={addCoverLetter}>+</button>
+        <button className="add-button" onClick={addCoverLetter}>+</button>
       </div>
-      <div>
+      <div className="submit-button-container">
         <SubmitButton
           onClick={hasDataBefore ? put : post}
           isLoading={isFetching}
@@ -124,8 +117,93 @@ function CoverLetter(props) {
           useSpinner
         />
       </div>
+      <style jsx>{styles}</style>
     </div>
   );
 }
 
-export default CoverLetter;
+const styles = css`
+  button, div > :global(button) {
+    margin: 0 auto 20px;
+    padding: 14px 18px;
+    font-size: .875rem;
+    line-height: 12px;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #3182f6;
+  }
+  :global(button > span) {
+    color: #fff;
+  }
+  label {
+    font-weight: 500;
+    margin-bottom: 10px;
+    font-size: 1.25rem;
+  }
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 30px;
+    font-size: 12px;
+    color: #333d4b;
+    background: rgba(0,23,51,0.02);
+    border-radius: 5px;
+    border: 1px solid #f2f2f2;
+    -webkit-transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  }
+  .container {
+    max-width: 720px;
+  }
+  .delete-button-container {
+    margin-top: 40px;
+  }
+  .item-container {
+    padding-left: 0;
+  }
+  .submit-button-container {
+    text-align: center;
+  }
+  .add-button {
+    width: 95%;
+  }
+  .cover-letter-container {
+    margin-bottom: 50px;
+    text-align: center;
+  }
+`;
+
+function CoverLetterItem({index, coverLetter, onChangeItem, onDeleteItem}) {
+
+  const {sequenceNo, question} = coverLetter;
+  const onChangeEvent = (event) => {
+    return onChangeItem(index, event.target.name, event.target.value);
+  };
+
+  return (
+      <li className="row">
+        <div className="col-3">
+          <label>자소서번호</label>
+          <input
+              name="sequenceNo"
+              value={sequenceNo}
+              onChange={onChangeEvent}
+          />
+        </div>
+        <div className="col-8">
+          <label>문항질문</label>
+          <input
+              name="question"
+              value={question}
+              onChange={onChangeEvent}
+          />
+        </div>
+        <div className="col-1 delete-button-container">
+          <button onClick={() => onDeleteItem(index)}>-</button>
+        </div>
+        <style jsx>{styles}</style>
+      </li>
+  );
+}
