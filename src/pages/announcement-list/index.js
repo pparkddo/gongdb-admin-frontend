@@ -72,6 +72,14 @@ function Announcement({announcement}) {
                   <td><p>{announcement.id}</p></td>
                 </tr>
                 <tr>
+                  <th><p>차수ID</p></th>
+                  <td>
+                    <a href={`/sequence/${announcement.sequence.id}`}>
+                      {announcement.sequence.id}
+                    </a>
+                  </td>
+                </tr>
+                <tr>
                   <th><p>채용구분</p></th>
                   <td><p>{announcement.recruitType}</p></td>
                 </tr>
