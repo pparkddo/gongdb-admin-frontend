@@ -2,25 +2,16 @@ import {useState} from "react";
 import {useHistory} from "react-router-dom";
 import {fail} from "components/alert";
 import SubmitButton from "components/submit-button";
+import WorkingTypeSelect from "components/workingTypeSelect";
+import RecruitLevelSelect from "components/recruitLevelSelect";
 import {fetchWrapper} from "helpers/fetch-wrapper";
-import Select from "react-select";
-import useCodes from "services/codes";
-import Spinner from "components/spinner";
 import "./index.css";
 
 /*부트스트랩*/
 
-const convertToOption = (values) => {
-  if (!values) {
-    return [];
-  }
-  return values.map((value) => ({value: value, label: value}));
-};
-
 function Home() {
 
   const history = useHistory();
-  const {workingTypes, recruitLevels, isError, isLoading} = useCodes();
 
   const [companyName, setCompanyName] = useState("");
   const [sequence, setSequence] = useState("");
@@ -81,18 +72,6 @@ function Home() {
     );
   };
 
-  if (isError) {
-    return (
-        <div>
-          <p>Error on fetching codes!</p>
-        </div>
-    );
-  }
-
-  if (isLoading) {
-    return <Spinner />;
-  }
-
   return (
     <div className="con_wrap">
       {/*inner*/}
@@ -122,19 +101,11 @@ function Home() {
         <ul className="row">
           <li className="col-xs-12 col-sm-6">
             <h5 className="col-12">근무형태</h5>
-            <Select
-                isSearchable={false}
-                options={convertToOption(workingTypes)}
-                onChange={(option) => setWorkingType(option.value)}
-            />
+            <WorkingTypeSelect onChange={(option) => setWorkingType(option.workingType)} />
           </li>
           <li className="col-xs-12 col-sm-6">
             <h5 className="col-12">채용수준</h5>
-            <Select
-                isSearchable={false}
-                options={convertToOption(recruitLevels)}
-                onChange={(option) => setRecruitLevel(option.value)}
-            />
+            <RecruitLevelSelect onChange={(option) => setRecruitLevel(option.recruitLevel)} />
           </li>
         </ul>
 

@@ -6,20 +6,10 @@ import {fetchWrapper} from "helpers/fetch-wrapper";
 import {fail, success} from "components/alert";
 import Spinner from "components/spinner";
 import SubmitButton from "components/submit-button";
-import Select from "react-select";
-import useCodes from "services/codes";
-import useSequence from "../../services/sequence";
+import useSequence from "services/sequence";
 import dayjs from "dayjs";
-
-const convertToOption = (value) => {
-  if (!value) {
-    return [];
-  }
-  if (typeof value === "string") {
-    return {value: value, label: value};
-  }
-  return value.map((each) => ({value: each, label: each}));
-};
+import WorkingTypeSelect from "components/workingTypeSelect";
+import RecruitLevelSelect from "components/recruitLevelSelect";
 
 const dayFormat = "YYYY-MM-DDTHH:mm:ss";
 
@@ -29,11 +19,8 @@ function SequenceEdit(props) {
   const sequenceId = params.id;
 
   const history = useHistory();
-  const codeResponse = useCodes();
   const sequenceResponse = useSequence(sequenceId);
-  const isLoading = codeResponse.isLoading || sequenceResponse.isLoading;
-  const isError = codeResponse.isError || sequenceResponse.isError;
-  const {sequence, mutate: mutateSequence} = sequenceResponse;
+  const {sequence, mutate: mutateSequence, isLoading, isError} = sequenceResponse;
 
   const [files, setFiles] = useState([]);  // 새로 추가할 파일
   const [uploadedFiles, setUploadedFiles] = useState([]); // 기존에 들어있는 파일들
@@ -177,20 +164,16 @@ function SequenceEdit(props) {
           <ul className="row">
             <li className="col-xs-12 col-sm-6">
               <h5 className="col-12">근무형태</h5>
-              <Select
-                  isSearchable={false}
-                  defaultValue={convertToOption(sequence.workingType)}
-                  options={convertToOption(codeResponse.workingTypes)}
-                  onChange={(option) => updateSequence("workingType", option.value)}
+              <WorkingTypeSelect
+                  defaultValue={sequence.workingType}
+                  onChange={(option) => updateSequence("workingType", option.workingType)}
               />
             </li>
             <li className="col-xs-12 col-sm-6">
               <h5 className="col-12">채용수준</h5>
-              <Select
-                  isSearchable={false}
-                  defaultValue={convertToOption(sequence.recruitLevel)}
-                  options={convertToOption(codeResponse.recruitLevels)}
-                  onChange={(option) => updateSequence("recruitLevel", option.value)}
+              <RecruitLevelSelect
+                  defaultValue={sequence.recruitLevel}
+                  onChange={(option) => updateSequence("recruitLevel", option.recruitLevel)}
               />
             </li>
           </ul>

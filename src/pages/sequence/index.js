@@ -47,11 +47,11 @@ function Sequence() {
                 </tr>
                 <tr>
                   <th><p>근무유형</p></th>
-                  <td><p>{sequence.workingType}</p></td>
+                  <td><p>{sequence.workingType.workingTypeName}</p></td>
                 </tr>
                 <tr>
                   <th><p>채용수준</p></th>
-                  <td><p>{sequence.recruitLevel}</p></td>
+                  <td><p>{sequence.recruitLevel.recruitLevelName}</p></td>
                 </tr>
                 <tr>
                   <th><p>접수시작일</p></th>
