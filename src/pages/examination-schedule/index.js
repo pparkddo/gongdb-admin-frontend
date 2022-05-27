@@ -75,7 +75,6 @@ export default function ExaminationSchedule(props) {
           if (data.examinationScheduleItems.length === 0) {
             return;
           }
-          console.log(convertExaminationSchedule(data.examinationScheduleItems));
           setExaminationSchedule(convertExaminationSchedule(data.examinationScheduleItems));
           setHasDataBefore(true);
         }

@@ -45,8 +45,8 @@ function SequenceEdit(props) {
     const content = {
       companyName: sequence.companyName || sequence.company.name,
       sequence: sequence.sequence,
-      workingType: sequence.workingType,
-      recruitLevel: sequence.recruitLevel,
+      workingType: sequence.workingType.workingType,
+      recruitLevel: sequence.recruitLevel.recruitLevel,
       receiptStartTimestamp: sequence.receiptStartTimestamp,
       receiptEndTimestamp: sequence.receiptEndTimestamp,
       link: sequence.link,
