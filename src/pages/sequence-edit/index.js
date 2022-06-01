@@ -13,6 +13,8 @@ import RecruitLevelSelect from "components/recruitLevelSelect";
 
 const dayFormat = "YYYY-MM-DDTHH:mm:ss";
 
+const isString = (value) => typeof value === "string" || value instanceof String;
+
 function SequenceEdit(props) {
 
   const params = props.match.params;
@@ -45,8 +47,8 @@ function SequenceEdit(props) {
     const content = {
       companyName: sequence.companyName || sequence.company.name,
       sequence: sequence.sequence,
-      workingType: sequence.workingType.workingType,
-      recruitLevel: sequence.recruitLevel.recruitLevel,
+      workingType: isString(sequence.workingType) ? sequence.workingType : sequence.workingType.workingType,
+      recruitLevel: isString(sequence.recruitLevel) ? sequence.recruitLevel : sequence.recruitLevel.recruitLevel,
       receiptStartTimestamp: sequence.receiptStartTimestamp,
       receiptEndTimestamp: sequence.receiptEndTimestamp,
       link: sequence.link,
